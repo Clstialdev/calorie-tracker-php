@@ -25,7 +25,7 @@ require_once $rootPath.'/../../config/Globals.php'
               <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/market.png" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/user.png" alt="" /></a>
+              <a href="/calorie-tracker-php/app/views/user/settings.php"><img src="<?= BASE_APP_DIR ?>/public/images/icons/user.png" alt="" /></a>
             </li>
           </ul>
         </nav>
@@ -55,7 +55,7 @@ $("#logout").click(function(e){
         e.preventDefault();
         
         $.ajax({
-            url: "../controllers/Users.php",
+            url: "/calorie-tracker-php/app/controllers/Users.php",
             type: "GET",
             data: "&q=logout",
             dataType: 'json', // Expect JSON response
@@ -65,7 +65,7 @@ $("#logout").click(function(e){
                         title: 'User logout successfully!',
                         icon: 'success'
                     }).then(function() {
-                        window.location = 'login.php'; // Redirect to home.php
+                        window.location = '/calorie-tracker-php/app/views/login.php'; // Redirect to home.php
                     });
                   }
             },
