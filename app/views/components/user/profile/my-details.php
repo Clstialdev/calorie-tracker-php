@@ -42,10 +42,10 @@
             <label for="age" class="pt-4">Goal</label>
             <div class="input-group mt-2 flex-nowrap">
               <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01"
+                <label class="input-group-text" for="goal"
                   >Options</label
                 >
-                <select class="form-select" id="inputGroupSelect01">
+                <select class="form-select" id="goal">
                   <option selected>Choose...</option>
                   <option value="gain-weight-normal">Gain Weight</option>
                   <option value="lose-weight-normal">Lose Weight</option>
