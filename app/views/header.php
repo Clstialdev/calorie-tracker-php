@@ -5,16 +5,17 @@ require_once $rootPath.'/../../config/Globals.php'
 ?>
 
 <header
-      class="flex flex-column justify-between items-center p-12 bg-main w-[180px] h-screen fixed left-0 top-0"
+      class="d-flex flex-column justify-content-between align-items-center bg-main position-fixed left-0 top-0"
+      style="width: 180px; height: 100vh; padding: 80px 0;"
     >
       <div>
         <!-- Logo -->
-        <div class="logo h-[66px] w-[66px]">
+        <div class="logo">
           <img src="<?= BASE_APP_DIR ?>/public/images/logo.png" alt="" />
         </div>
         <!-- Nav -->
-        <nav class="pt-24">
-          <ul class="flex flex-column items-center gap-20">
+        <nav class="" style="padding-top: 130px">
+          <ul class="d-flex flex-column align-items-center list-unstyled" style="gap: 5rem;">
             <li>
               <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/home.png" alt="" /></a>
             </li>
@@ -32,17 +33,17 @@ require_once $rootPath.'/../../config/Globals.php'
       </div>
       <!-- Disconnect / Connect -->
       <?php if(!isset($_SESSION['id'])) : ?>
-        <a class="logo h-[66px] w-[66px] self-end" href="login.php">
+        <a class="logo" href="login.php">
           Login
         <img src="" alt="" />
       </a>
-      <a class="logo h-[66px] w-[66px] self-end" href="register.php">
+      <a class="logo" href="register.php">
           S'inscrire
         <img src="" alt="" />
       </a>
 
         <?php else: ?>
-      <a class="logo h-[66px] w-[66px] self-end" href="">
+      <a class="logo" href="">
         <img name="logout" id="logout" src="<?= BASE_APP_DIR ?>/public/images/icons/disconnect.png" alt="" />
       </a>
       <?php endif; ?>
