@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once '../../../config/Globals.php'
 ?>
 
 <header
@@ -9,22 +9,22 @@ session_start();
       <div>
         <!-- Logo -->
         <div class="logo h-[66px] w-[66px]">
-          <img src="../../public/images/logo.png" alt="" />
+          <img src="<?= BASE_APP_DIR ?>/public/images/logo.png" alt="" />
         </div>
         <!-- Nav -->
         <nav class="pt-24">
           <ul class="flex flex-column items-center gap-20">
             <li>
-              <a href=""><img src="../../public/images/icons/home.png" alt="" /></a>
+              <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/home.png" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="../../public/images/icons/calender.png" alt="" /></a>
+              <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/calender.png" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="../../public/images/icons/market.png" alt="" /></a>
+              <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/market.png" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="../../public/images/icons/user.png" alt="" /></a>
+              <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/user.png" alt="" /></a>
             </li>
           </ul>
         </nav>
@@ -42,7 +42,7 @@ session_start();
 
         <?php else: ?>
       <a class="logo h-[66px] w-[66px] self-end" href="">
-        <img name="logout" id="logout" src="../../public/images/icons/disconnect.png" alt="" />
+        <img name="logout" id="logout" src="<?= BASE_APP_DIR ?>/public/images/icons/disconnect.png" alt="" />
       </a>
       <?php endif; ?>
     </header>
