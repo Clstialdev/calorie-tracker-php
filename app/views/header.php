@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+$rootPath = realpath(dirname(__FILE__));
+require_once $rootPath.'/../../config/Globals.php'
 ?>
 
 <header
@@ -10,22 +11,22 @@ session_start();
       <div>
         <!-- Logo -->
         <div class="logo">
-          <img src="../../public/images/logo.png" alt="" />
+          <img src="<?= BASE_APP_DIR ?>/public/images/logo.png" alt="" />
         </div>
         <!-- Nav -->
         <nav class="" style="padding-top: 130px">
           <ul class="d-flex flex-column align-items-center list-unstyled" style="gap: 5rem;">
             <li>
-              <a href=""><img src="../../public/images/icons/home.png" alt="" /></a>
+              <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/home.png" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="../../public/images/icons/calender.png" alt="" /></a>
+              <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/calender.png" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="../../public/images/icons/market.png" alt="" /></a>
+              <a href=""><img src="<?= BASE_APP_DIR ?>/public/images/icons/market.png" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="../../public/images/icons/user.png" alt="" /></a>
+              <a href="/calorie-tracker-php/app/views/user/settings.php"><img src="<?= BASE_APP_DIR ?>/public/images/icons/user.png" alt="" /></a>
             </li>
           </ul>
         </nav>
@@ -43,7 +44,7 @@ session_start();
 
         <?php else: ?>
       <a class="logo" href="">
-        <img name="logout" id="logout" src="../../public/images/icons/disconnect.png" alt="" />
+        <img name="logout" id="logout" src="<?= BASE_APP_DIR ?>/public/images/icons/disconnect.png" alt="" />
       </a>
       <?php endif; ?>
     </header>
@@ -55,7 +56,7 @@ $("#logout").click(function(e){
         e.preventDefault();
         
         $.ajax({
-            url: "../controllers/Users.php",
+            url: "/calorie-tracker-php/app/controllers/Users.php",
             type: "GET",
             data: "&q=logout",
             dataType: 'json', // Expect JSON response
@@ -65,7 +66,7 @@ $("#logout").click(function(e){
                         title: 'User logout successfully!',
                         icon: 'success'
                     }).then(function() {
-                        window.location = 'login.php'; // Redirect to home.php
+                        window.location = '/calorie-tracker-php/app/views/login.php'; // Redirect to home.php
                     });
                   }
             },

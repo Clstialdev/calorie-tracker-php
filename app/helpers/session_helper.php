@@ -27,4 +27,14 @@ function redirect($location){
     header("location : ".$location);
     exit();
 }
+
+// This shouldn't stay here btw
+function generateTabLink($currentTab, $tabName, $label) {
+    $isActive = ($currentTab === $tabName) ? 'active-tab' : '';
+    echo "<li><a class='nav-tab $isActive' href='?tab=$tabName'>$label</a></li>";
+}
+
+
 ?>
+
+

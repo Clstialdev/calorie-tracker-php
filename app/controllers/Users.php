@@ -12,6 +12,9 @@ class Users {
         $this->userModel = new User ;
     }
 
+
+
+
     public function register(){
         //Process form
         //Sanitize POST data
@@ -84,7 +87,10 @@ class Users {
         $_SESSION['id']=$user->id;
         $_SESSION['fullname']=$user->fullname;
         $_SESSION['email']=$user->email;
-
+        $_SESSION['height']=$user->height;
+        $_SESSION['age']=$user->age;
+        $_SESSION['weight']=$user->weight;
+        $_SESSION['goal']=$user->goal;
     }
 
     public function logout(){
@@ -94,6 +100,64 @@ class Users {
         session_destroy();
         echo json_encode(['success' => true]);
     }
+
+    /////////////////////////// USER SETTINGS /////////////////////////////////////
+    public function update_user_details(){
+        //Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+        //Init data
+        $data = [
+            'user_id' => trim($_POST['user_id']),
+            'fullname' => trim($_POST['fullname']),
+            'goal' => trim($_POST['goal']),
+            'height' => trim($_POST['height']),
+            'weight' => trim($_POST['weight']),
+            'age' => trim($_POST['age'])
+        ];
+    
+        if($this->userModel->update_user_details($data)){
+            $updatedUser = $this->userModel->getUserById($data['user_id']);
+            $this->createUserSession($updatedUser);
+            echo json_encode(['success' => true]);
+            exit;
+        }else{
+            echo json_encode(['success' => false, 'message' => 'No user found']);
+            exit;
+        }
+    }
+
+
+
+    public function update_user_first_login(){
+        //Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+        //Init data
+        $data = [
+            'id' => trim($_POST['id']),
+            'fullname' => trim($_SESSION['fullname']),
+            'goal' => trim($_POST['goal']),
+            'height' => trim($_POST['height']),
+            'weight' => trim($_POST['weight']),
+            'age' => trim($_POST['age']),
+            'gender' => trim($_POST['gender']),
+            'dailyCalories' =>trim($_POST['dailyCalories'])
+        ];
+    
+        if($this->userModel->update_user_first_login($data)){
+          //  $updatedUser = $this->userModel->getUserById($data['id']);
+         //   $this->createUserSession($updatedUser);
+            echo json_encode(['success' => true]);
+            exit;
+        }else{
+            echo json_encode(['success' => false, 'message' => 'Something went wrong']);
+            exit;
+        }
+    }
+
+    
+
 }
 
 $init = new Users ;
@@ -106,6 +170,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             break;
         case 'login':
             $init->login();
+            break;
+        case 'update-user-details':
+            $init->update_user_details();
+            break;
+        case 'first-login':
+            $init->update_user_first_login();
             break;
         default:
         header("Location: login.php"); // Redirect to login.php
