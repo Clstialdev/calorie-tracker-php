@@ -37,3 +37,19 @@
 .text-red {
   color: #ffb0b0;
 }
+
+.border-bg {
+  border-color: #f8ede3;
+}
+.border-main {
+  border-color: #678e48;
+}
+.border-gray {
+  border-color: #b0b29f;
+}
+.border-accent {
+  border-color: #d6ff92;
+}
+.border-red {
+  border-color: #ffb0b0;
+}
