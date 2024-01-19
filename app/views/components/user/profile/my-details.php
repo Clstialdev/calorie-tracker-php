@@ -4,15 +4,24 @@
           <h4>Personal Info</h4>
           <p>Update your photo and personal details here.</p>
           <!-- Name -->
-          <form class="">
+          <form class="" id="form-data" method="post" >
+            <!-- User id HIDDEN -->
+            <input
+              type="hidden"
+              id="user_id"
+              name="user_id"
+              value="<?php echo $_SESSION['id'] ?>"
+            />
             <!-- FULL NAME -->
             <label for="fullname" class="pt-2">Full Name:</label>
             <input
+            required
               type="text"
               class="form-control mt-2"
               aria-label="fullname"
               id="fullname"
-              value="USER_FULLNAME"
+              name="fullname"
+              value="<?php echo $_SESSION['fullname'] ?>"
             />
 
             <!-- PHOTO -->
@@ -35,6 +44,7 @@
                 class="form-control mt-2"
                 style="height: fit-content"
                 id="profile-image"
+                name="profile-image"
               />
             </div>
 
@@ -45,12 +55,12 @@
                 <label class="input-group-text" for="goal"
                   >Options</label
                 >
-                <select class="form-select" id="goal">
-                  <option selected>Choose...</option>
-                  <option value="gain-weight-normal">Gain Weight</option>
-                  <option value="lose-weight-normal">Lose Weight</option>
-                  <option value="lose-weight-fast">Lose Weight Fast</option>
-                </select>
+                <select class="form-select" id="goal" name="goal">
+                  <option value="">Choose...</option>
+                  <option value="gain-weight-normal" <?php echo ($_SESSION['goal'] == 'gain-weight-normal') ? 'selected' : ''; ?>>Gain Weight</option>
+                  <option value="lose-weight-normal" <?php echo ($_SESSION['goal'] == 'lose-weight-normal') ? 'selected' : ''; ?>>Lose Weight</option>
+                  <option value="lose-weight-fast" <?php echo ($_SESSION['goal'] == 'lose-weight-fast') ? 'selected' : ''; ?>>Lose Weight Fast</option>
+              </select>
               </div>
             </div>
 
@@ -59,18 +69,24 @@
             <div class="input-group mt-2 flex-nowrap">
               <span class="input-group-text">Height</span>
               <input
+              required
                 type="number"
                 aria-label="height"
                 class="form-control"
                 id="height"
+                name="height"
+                value="<?php echo $_SESSION['height'] ?>"
               />
               <span class="input-group-text">cm</span>
               <span class="input-group-text">Weight</span>
               <input
+              required
                 type="number"
                 aria-label="weight"
                 class="form-control"
                 id="weight"
+                name="weight"
+                value="<?php echo $_SESSION['weight'] ?>"
               />
               <span class="input-group-text">kg</span>
             </div>
@@ -79,18 +95,62 @@
             <label for="age" class="pt-4">Age</label>
             <div class="input-group mt-2 flex-nowrap">
               <input
+              required
                 type="number"
                 aria-label="height"
                 class="form-control"
                 id="age"
+                name="age"
+                value="<?php echo $_SESSION['age'] ?>"
               />
             </div>
 
             <!-- BUTTON SUBMIT -->
             <div class="d-grid gap-2 col-6 mt-4">
-              <button class="btn btn-primary bg-main border-main" type="submit">
+              <button id="update-user-details-btn" class="btn btn-primary bg-main border-main" type="submit">
                 Submit
               </button>
             </div>
           </form>
         </div>
+
+<script type="text/javascript">
+
+$("#update-user-details-btn").click(function(e){
+    if($("#form-data")[0].checkValidity()){
+        e.preventDefault();
+        
+        $.ajax({
+            url: "../../controllers/Users.php",
+            type: "POST",
+            data: $("#form-data").serialize() + "&action=update-user-details",
+            dataType: 'json', // Expect JSON response
+            success: function(response){
+                if(response.success) {
+                    Swal.fire({
+                        title: 'User details updated successfully!',
+                        icon: 'success'
+                    })
+                    .then(function() {
+                        window.location.reload(true);
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Update failed!',
+                        text: response.message, // Display the error message from the server
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire({
+                    title: 'AJAX error!',
+                    text: 'Please try again. (' + textStatus + errorThrown + ')',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+});
+   
+</script>
