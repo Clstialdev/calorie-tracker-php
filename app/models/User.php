@@ -94,6 +94,35 @@ class User {
             }
 
     }
+    
+    
+    public function update_user_credentials($data){
+        $this->db->query('SELECT password FROM users WHERE id = :user_id');
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->execute();
+        $currentPassword = $this->db->single()->password;
+    
+        // Verify old password
+        if (!password_verify($data['old_password'], $currentPassword)) {
+            return false; // Old password does not match
+        }
+    
+        // Hash new password
+        $hashedPassword = password_hash($data['new_password'], PASSWORD_DEFAULT);
+    
+        // Update credentials in the database
+        $this->db->query('UPDATE users SET email = :email, password = :password WHERE id = :user_id');
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':password', $hashedPassword);
+        $this->db->bind(':user_id', $data['user_id']);
+    
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
 
     //Reset Password
     public function resetPassword($newPwdHash, $tokenEmail){

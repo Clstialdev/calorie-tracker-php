@@ -3,7 +3,7 @@
           <h4>Account Security</h4>
           <p>Update your email and password here.</p>
           <!-- FORM -->
-          <form class="">
+          <form class="" id="form-data">
             <!-- EMAIL -->
             <label for="email" class="pt-2">Email:</label>
             <input
@@ -11,7 +11,8 @@
               class="form-control mt-2"
               aria-label="email"
               id="email"
-              value="USER_EMAIL"
+              name="email"
+              value="<?php echo $_SESSION['email'] ?>"
             />
             <!-- OLD PASSWORD -->
             <label for="old_password" class="pt-2">Old Password</label>
@@ -20,6 +21,7 @@
               class="form-control mt-2"
               aria-label="old_password"
               id="old_password"
+              name="old_password"
             />
 
             <!-- New Password -->
@@ -31,6 +33,7 @@
                 aria-label="password"
                 class="form-control"
                 id="password"
+                name="new_password"
               />
               <span class="input-group-text">Repeat Password</span>
               <input
@@ -38,14 +41,67 @@
                 aria-label="repeat_password"
                 class="form-control"
                 id="repeat_password"
+                name="repeat_password"
               />
             </div>
 
             <!-- BUTTON SUBMIT -->
             <div class="d-grid gap-2 col-6 mt-4">
-              <button class="btn btn-primary bg-main border-main" type="submit">
+              <button class="btn btn-primary bg-main border-main" id="update-user-credentials-btn" type="submit">
                 Submit
               </button>
             </div>
           </form>
         </div>
+
+        <script type="text/javascript">
+
+$("#update-user-credentials-btn").click(function(e){
+    if($("#form-data")[0].checkValidity()){
+        e.preventDefault();
+
+        var password = $("#password").val();
+        var confirmPassword = $("#repeat_password").val();
+
+        // Check if passwords match
+        if(password !== confirmPassword) {
+            Swal.fire({
+                title: 'Update failed!',
+                text: 'Passwords do not match.',
+                icon: 'error'
+            });
+            return; // Don't submit the form data
+        }
+        
+        $.ajax({
+            url: "/calorie-tracker-php/app/controllers/Users.php",
+            type: "POST",
+            data: $("#form-data").serialize() + "&action=update-user-credentials",
+            dataType: 'json', // Expect JSON response
+            success: function(response){
+                if(response.success) {
+                    Swal.fire({
+                        title: 'User Updated successfully!',
+                        icon: 'success'
+                    });
+                    $("#form-data")[0].reset(); // Reset form only on success
+                } else {
+                    Swal.fire({
+                        title: 'Update failed!',
+                        text: response.message, // Display the error message from the server
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire({
+                    title: 'AJAX error!',
+                    text: 'Please try again. (' + textStatus + ')',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+});
+   
+</script>

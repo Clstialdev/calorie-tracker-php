@@ -127,6 +127,30 @@ class Users {
         }
     }
 
+
+    public function update_user_credentials(){
+        //Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+        //Init data
+        $data = [
+            'user_id' => $_SESSION['id'],
+            'email' => trim($_POST['email']),
+            'old_password' => trim($_POST['old_password']),
+            'new_password' => trim($_POST['new_password']),
+        ];
+    
+        if($this->userModel->update_user_credentials($data)){
+            $updatedUser = $this->userModel->getUserById($data['user_id']);
+            $this->createUserSession($updatedUser);
+            echo json_encode(['success' => true]);
+            exit;
+        }else{
+            echo json_encode(['success' => false, 'message' => 'Old password incorrect']);
+            exit;
+        }
+    }
+
     
 
 }
@@ -144,6 +168,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             break;
         case 'update-user-details':
             $init->update_user_details();
+            break;
+        case 'update-user-credentials':
+            $init->update_user_credentials();
             break;
         default:
         header("Location: login.php"); // Redirect to login.php
