@@ -153,6 +153,35 @@ class Users {
 
     
 
+    public function update_user_first_login(){
+        //Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+        //Init data
+        $data = [
+            'id' => trim($_POST['id']),
+            'fullname' => trim($_SESSION['fullname']),
+            'goal' => trim($_POST['goal']),
+            'height' => trim($_POST['height']),
+            'weight' => trim($_POST['weight']),
+            'age' => trim($_POST['age']),
+            'gender' => trim($_POST['gender']),
+            'dailyCalories' =>trim($_POST['dailyCalories'])
+        ];
+    
+        if($this->userModel->update_user_first_login($data)){
+          //  $updatedUser = $this->userModel->getUserById($data['id']);
+         //   $this->createUserSession($updatedUser);
+            echo json_encode(['success' => true]);
+            exit;
+        }else{
+            echo json_encode(['success' => false, 'message' => 'Something went wrong']);
+            exit;
+        }
+    }
+
+    
+
 }
 
 $init = new Users ;
@@ -171,6 +200,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             break;
         case 'update-user-credentials':
             $init->update_user_credentials();
+            break;
+        case 'first-login':
+            $init->update_user_first_login();
             break;
         default:
         header("Location: login.php"); // Redirect to login.php

@@ -124,6 +124,35 @@ class User {
     }
     
 
+    //First login
+    public function update_user_first_login($data){
+        $this->db->query('UPDATE users SET goal = :goal, height = :height, weight = :weight, age = :age, gender= :gender,daily_caloriegoal = :dailyCalories WHERE id = :id');
+        $this->db->bind(':goal', $data['goal']);
+        $this->db->bind(':height', $data['height']);
+        $this->db->bind(':weight', $data['weight']);
+        $this->db->bind(':age', $data['age']);
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':gender', $data['gender']);
+        $this->db->bind(':dailyCalories', $data['dailyCalories']);
+        
+        try {
+            if($this->db->execute()){
+                return true;
+            } else {
+                // Log error or get error details
+                $error = $this->db->errorInfo();
+                // Handle or log the error details
+                error_log("Database Error: " . $error[2]); // Error logging
+                return false;
+            }
+        } catch (PDOException $e) {
+            // Handle or log the exception
+            error_log("PDOException: " . $e->getMessage()); // Exception logging
+            return false;
+        }
+
+}
+
     //Reset Password
     public function resetPassword($newPwdHash, $tokenEmail){
         $this->db->query('UPDATE users SET password=:pwd WHERE email=:email');
