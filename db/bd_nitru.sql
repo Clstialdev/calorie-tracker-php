@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le : mer. 17 jan. 2024 à 15:15
+-- Généré le : sam. 20 jan. 2024 à 00:28
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -144,28 +144,31 @@ CREATE TABLE `users` (
   `role` varchar(250) NOT NULL DEFAULT 'Regular',
   `height` int(11) DEFAULT NULL,
   `weight` int(11) DEFAULT NULL,
-  `daily_caloriegoal` int(11) DEFAULT NULL
+  `daily_caloriegoal` int(11) DEFAULT NULL,
+  `gender` varchar(250) DEFAULT NULL,
+  `goal` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `fullname`, `password`, `email`, `active`, `creation_date`, `age`, `role`, `height`, `weight`, `daily_caloriegoal`) VALUES
-(14, 'Ahmed', '$2y$10$mbyoMTM2H/gs/LAWfzmKrepZ46W0TXZAhINCe4r5YJPgJBcbEdfKi', 'Fateh@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(15, 'Ahmed', '$2y$10$mycVkeV2SdjNWTwufSYBtODnd8kEcIo1aJDBl/2S7xrACZ7oe6KuW', 'ahmed.boulaabi0306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(16, 'dddd', '$2y$10$Hnl0hFojty8biPvG.mQyCeJkdequvRSr93oPvn6gJMfRvVztFK2fm', 'ahmelaabi0306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(17, 'ahmed.boulaabi0306@gmail.com', '$2y$10$GQNLknuIjwYsmLSGxUW9DezfncGJ3V9Fa2nZ1zcdQjFYn2VwpqrHe', 'aoulaabi0306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(18, 'ahm0306@gmail.com', '$2y$10$MqcnnyBW8EpsaLAd6VOBCO9aq3rzna1bTngVo1UhMPIjFNGAJAqtu', 'ahmedbi0306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(19, 'fergz', '$2y$10$7TVg.lLIyqq77DYcy6bi.OrHvIrLPfkodfwZvlUgQArtayqKASIKq', 'fathhh306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(20, 'Fateh', '$2y$10$CrY.JpmeV98E8q.L/xZigOwR4myofRXIswX9cOhCeT/gDJBcsAXGe', 'Fatehddd@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(21, 'azd', '$2y$10$S8O0dMyESYeCOChU9DVSNO9JpEYB.hA5vdVMMtb/mrqZSOItb8o1C', 'ah@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(22, 'sqxc', '$2y$10$vyQuHSxobqCkEoO.mFbE3.pn7EfN3x6ums1XH0Tv7.5.UU.Ff6Cai', '', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(23, 'fggtr', '$2y$10$tkg3qooMnCgvQsMBXuSFm.Md6CcalNcZlJ0oVkFb6y67SqHxATw/i', 'ad@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(24, 'dsqd', '$2y$10$JVMTuJ7EuPgsc/fKlDIuieC2m4AjT7TKzu05mDDvuC.Mvq563sTie', 'ahmed.bou6@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL),
-(25, 'achraf', '$2y$10$VOPbQr6XAM4qNCrMRBGDmOACaYEeCMbkkOyb/T905/CHV36fx2Bte', 'achraf@gmail.com', 1, '2024-01-16', NULL, 'Regular', NULL, NULL, NULL),
-(26, 'Ahmed Boulaabi', '$2y$10$VlgcfsEJII4Kjfnukydsa.46dmY40mg7DUzE2hNHl2ZYxyAm1lz4O', 'ahmed@gmail.com', 1, '2024-01-16', NULL, 'Regular', NULL, NULL, NULL),
-(27, 'Elias', '$2y$10$Ub3J0R85f3cHkvQoGhjIn.WsesmZhXzsHCo/ztObUTwMKYEf6f5Q2', 'elias@gmail.com', 1, '2024-01-17', NULL, 'Regular', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `fullname`, `password`, `email`, `active`, `creation_date`, `age`, `role`, `height`, `weight`, `daily_caloriegoal`, `gender`, `goal`) VALUES
+(14, 'Ahmed', '$2y$10$mbyoMTM2H/gs/LAWfzmKrepZ46W0TXZAhINCe4r5YJPgJBcbEdfKi', 'Fateh@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(15, 'Ahmed', '$2y$10$mycVkeV2SdjNWTwufSYBtODnd8kEcIo1aJDBl/2S7xrACZ7oe6KuW', 'ahmed.boulaabi0306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(16, 'dddd', '$2y$10$Hnl0hFojty8biPvG.mQyCeJkdequvRSr93oPvn6gJMfRvVztFK2fm', 'ahmelaabi0306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(17, 'ahmed.boulaabi0306@gmail.com', '$2y$10$GQNLknuIjwYsmLSGxUW9DezfncGJ3V9Fa2nZ1zcdQjFYn2VwpqrHe', 'aoulaabi0306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(18, 'ahm0306@gmail.com', '$2y$10$MqcnnyBW8EpsaLAd6VOBCO9aq3rzna1bTngVo1UhMPIjFNGAJAqtu', 'ahmedbi0306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(19, 'fergz', '$2y$10$7TVg.lLIyqq77DYcy6bi.OrHvIrLPfkodfwZvlUgQArtayqKASIKq', 'fathhh306@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(20, 'Fateh', '$2y$10$CrY.JpmeV98E8q.L/xZigOwR4myofRXIswX9cOhCeT/gDJBcsAXGe', 'Fatehddd@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(21, 'azd', '$2y$10$S8O0dMyESYeCOChU9DVSNO9JpEYB.hA5vdVMMtb/mrqZSOItb8o1C', 'ah@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(22, 'sqxc', '$2y$10$vyQuHSxobqCkEoO.mFbE3.pn7EfN3x6ums1XH0Tv7.5.UU.Ff6Cai', '', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(23, 'fggtr', '$2y$10$tkg3qooMnCgvQsMBXuSFm.Md6CcalNcZlJ0oVkFb6y67SqHxATw/i', 'ad@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(24, 'dsqd', '$2y$10$JVMTuJ7EuPgsc/fKlDIuieC2m4AjT7TKzu05mDDvuC.Mvq563sTie', 'ahmed.bou6@gmail.com', 1, '2024-01-15', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(25, 'achraf', '$2y$10$VOPbQr6XAM4qNCrMRBGDmOACaYEeCMbkkOyb/T905/CHV36fx2Bte', 'achraf@gmail.com', 1, '2024-01-16', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(26, 'Ahmed Boulaabi', '$2y$10$VlgcfsEJII4Kjfnukydsa.46dmY40mg7DUzE2hNHl2ZYxyAm1lz4O', 'ahmed@gmail.com', 1, '2024-01-16', NULL, 'Regular', NULL, NULL, NULL, NULL, NULL),
+(27, 'Elias', '$2y$10$Ub3J0R85f3cHkvQoGhjIn.WsesmZhXzsHCo/ztObUTwMKYEf6f5Q2', 'elias@gmail.com', 1, '2024-01-17', 25, 'Regular', 256, 14, 1456, 'female', 'lose-weight-normal'),
+(30, 'zeyad', '$2y$10$wLXxTIBUm6eWZJinwh26eOAlQ5QxJ2inO7bfj3WJbmO4MYMY6IzDa', 'zeyad@gmail.com', 1, '2024-01-20', 23, 'Regular', 175, 68, 2148, 'male', 'lose-weight-normal');
 
 -- --------------------------------------------------------
 
@@ -263,7 +266,7 @@ ALTER TABLE `pwdreset`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Contraintes pour les tables déchargées

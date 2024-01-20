@@ -12,13 +12,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
+    <link rel="stylesheet" href="../../public/css/global.css" />
 
   </head>
   <body>
     <!-- HEADER -->
     <?php
     include_once 'header.php';
+
+  
+
     ?>
     <!-- BODY -->
     <div class="w-full min-h-screen pl-[180px] bg-bg">
@@ -92,7 +95,7 @@ $("#login").click(function(e){
                         title: 'User login successfully!',
                         icon: 'success'
                     }).then(function() {
-                        window.location = 'home.php'; // Redirect to home.php
+                        window.location = 'first-login.php'; // Redirect to home.php
                     });
                     $("#form-data")[0].reset(); // Reset form only on success
                 } else {
