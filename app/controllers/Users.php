@@ -170,8 +170,8 @@ class Users {
         ];
     
         if($this->userModel->update_user_first_login($data)){
-          //  $updatedUser = $this->userModel->getUserById($data['id']);
-         //   $this->createUserSession($updatedUser);
+            $updatedUser = $this->userModel->getUserById($data['id']);
+            $this->createUserSession($updatedUser);
             echo json_encode(['success' => true]);
             exit;
         }else{
