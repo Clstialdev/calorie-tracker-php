@@ -7,7 +7,9 @@
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+
+SET sql_mode = 'NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -139,7 +141,7 @@ CREATE TABLE `users` (
   `password` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `active` int(10) NOT NULL,
-  `creation_date` date NOT NULL DEFAULT current_timestamp(),
+  `creation_date` DATETIME DEFAULT CURRENT_TIMESTAMP, ---- a posé problème
   `age` int(11) DEFAULT NULL,
   `role` varchar(250) NOT NULL DEFAULT 'Regular',
   `height` int(11) DEFAULT NULL,

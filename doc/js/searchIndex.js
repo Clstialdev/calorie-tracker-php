@@ -1,0 +1,49 @@
+Search.appendIndex(
+    [
+                {
+            "fqsen": "\\Manger\\Controller\\RecipeController",
+            "name": "RecipeController",
+            "summary": "",
+            "url": "classes/Manger-Controller-RecipeController.html"
+        },                {
+            "fqsen": "\\Manger\\Controller\\RecipeController\u003A\u003AshowRecipes\u0028\u0029",
+            "name": "showRecipes",
+            "summary": "showRecipes",
+            "url": "classes/Manger-Controller-RecipeController.html#method_showRecipes"
+        },                {
+            "fqsen": "\\Manger\\Controller\\RecipeController\u003A\u003AshowRecipesJSON\u0028\u0029",
+            "name": "showRecipesJSON",
+            "summary": "showRecipesJSON",
+            "url": "classes/Manger-Controller-RecipeController.html#method_showRecipesJSON"
+        },                {
+            "fqsen": "\\Manger\\Model\\RecipeModel",
+            "name": "RecipeModel",
+            "summary": "",
+            "url": "classes/Manger-Model-RecipeModel.html"
+        },                {
+            "fqsen": "\\Manger\\Model\\RecipeModel\u003A\u003AgetData\u0028\u0029",
+            "name": "getData",
+            "summary": "",
+            "url": "classes/Manger-Model-RecipeModel.html#method_getData"
+        },                {
+            "fqsen": "\\",
+            "name": "\\",
+            "summary": "",
+            "url": "namespaces/default.html"
+        },                {
+            "fqsen": "\\Manger\\Controller",
+            "name": "Controller",
+            "summary": "",
+            "url": "namespaces/manger-controller.html"
+        },                {
+            "fqsen": "\\Manger",
+            "name": "Manger",
+            "summary": "",
+            "url": "namespaces/manger.html"
+        },                {
+            "fqsen": "\\Manger\\Model",
+            "name": "Model",
+            "summary": "",
+            "url": "namespaces/manger-model.html"
+        }            ]
+);
