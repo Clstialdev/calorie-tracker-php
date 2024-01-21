@@ -53,10 +53,11 @@
     </div>
   </div>
 
-  <script src="public/js/ajax.js"></script>
+  <script src="/../../public/js/ajax.js"></script>
 
   <script type="text/javascript">
     $("#register").click(function(e) {
+      console.log("dans register");
       if ($("#form-data")[0].checkValidity()) {
         e.preventDefault();
 
@@ -74,7 +75,6 @@
         }
 
         performAjaxRequest(
-          "../controllers/Users.php",
           "register",
           "",
           "User added successfully!",

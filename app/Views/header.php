@@ -8,7 +8,7 @@ require_once $rootPath . '/../../Config/Globals.php'
   <div>
     <!-- Logo -->
     <div class="logo">
-      <img src="<?= BASE_APP_DIR ?>/public/images/logo.png" alt="" />
+      <img src="/../../public/images/logo.png" alt="" />
     </div>
     <!-- Nav -->
     <nav class="" style="padding-top: 130px">
@@ -23,7 +23,7 @@ require_once $rootPath . '/../../Config/Globals.php'
           <a href=""><img src="/../../public/images/icons/market.png" alt="" /></a>
         </li>
         <li>
-          <a href="index.php?view=settings"><img src="</../../public/images/icons/user.png" alt="" /></a>
+          <a href="index.php?view=settings"><img src="/../../public/images/icons/user.png" alt="" /></a>
         </li>
       </ul>
     </nav>
@@ -46,7 +46,6 @@ require_once $rootPath . '/../../Config/Globals.php'
   <?php endif; ?>
 </header>
 
-<script src="public/js/ajax.js"></script>
 <script src="../../public/js/ajax.js"></script>
 <script type="text/javascript">
   $("#logout").click(function(e) {
