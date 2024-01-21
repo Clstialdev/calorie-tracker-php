@@ -1,25 +1,31 @@
-<?php 
+<?php
 
-class ResetPassword{
+use Config\Database;
 
-    private $db ;
-    public function __construct(){
-        $this->db = new Database;
+class ResetPassword
+{
+
+    private $db;
+    public function __construct()
+    {
+        $this->db = new Database();
     }
 
-    public function deleteEmail($email){
+    public function deleteEmail($email)
+    {
         $this->db->query('DELETE FROM pwdreset WHERE pwdResetEmail=:email');
-        $this->db->bind(':email',$email);
+        $this->db->bind(':email', $email);
 
         //Execute
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function insertToken($email,$selector,$hashedToken,$expires){
+    public function insertToken($email, $selector, $hashedToken, $expires)
+    {
         $this->db->query('INSERT INTO pwdreset (pwdResetEmail, pwdResetSelector, pwdResetToken,
         pwdResetExpires) VALUES (:email, :selector, :token, :expires)');
         $this->db->bind(':email', $email);
@@ -28,14 +34,15 @@ class ResetPassword{
         $this->db->bind(':expires', $expires);
 
         //Execute
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function resetPassword($selector, $currentDate){
+    public function resetPassword($selector, $currentDate)
+    {
         $this->db->query('SELECT * FROM pwdReset WHERE pwdResetSelector=:selector AND 
         pwdResetExpires >= :currentDate');
         $this->db->bind(':selector', $selector);
@@ -45,14 +52,10 @@ class ResetPassword{
         $row = $this->db->single();
 
         //check row
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
             return $row;
-        }else{
+        } else {
             return false;
         }
     }
-
-
-
-
 }

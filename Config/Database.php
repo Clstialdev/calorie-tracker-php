@@ -46,7 +46,6 @@ class Database
         // Create PDO instance
         try {
             $this->dbh = new \PDO($dsn, $user, $pass, $options);
-            echo 'Successfully Connected!';
         } catch (\PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;

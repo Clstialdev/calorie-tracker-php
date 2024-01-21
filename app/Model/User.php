@@ -4,7 +4,7 @@ namespace Manger\Model;
 
 use Config\Database;
 
-//require_once 'Config/Database.php';
+require_once 'Config/Database.php';
 
 class User
 {

@@ -1,8 +1,10 @@
 <?php
 
-require_once '../models/User.php';
-require_once '../helpers/session_helper.php';
 
+namespace Manger\Controller;
+
+use Manger\Model\User; // fonctionnel
+use Manger\Helpers\Session_Helper; // fonctionnel
 class Users
 {
 
@@ -11,7 +13,7 @@ class Users
     public function __construct()
     {
 
-        $this->userModel = new User;
+        $this->userModel = new User();
     }
 
     public function register()

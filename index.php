@@ -52,7 +52,11 @@ if (isset($_GET['action'])) {
 }
 
 if (isset($_GET['view'])) {
-    include __DIR__ . '/app/Views/' . $_GET['view'] . '.php';
+    if ($_GET['view'] == 'settings') {
+        include __DIR__ . '/app/Views/user/' . $_GET['view'] . '.php';
+    } else {
+        include __DIR__ . '/app/Views/' . $_GET['view'] . '.php';
+    }
 }
 
 // vue par défaut
