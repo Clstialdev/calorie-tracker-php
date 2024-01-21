@@ -1,21 +1,23 @@
-<?php 
+<?php
 
-require_once '../models/User.php';
-require_once '../helpers/session_helper.php';
 
-class Users {
+namespace Manger\Controller;
+
+use Manger\Model\User; // fonctionnel
+use Manger\Helpers\Session_Helper; // fonctionnel
+class Users
+{
 
     private $userModel;
 
-    public function __construct(){
+    public function __construct()
+    {
 
-        $this->userModel = new User ;
+        $this->userModel = new User();
     }
 
-
-
-
-    public function register(){
+    public function register()
+    {
         //Process form
         //Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -23,77 +25,71 @@ class Users {
         //Init data
         $data = [
             'fullname' => trim($_POST['fullname']),
-            'password'=> trim($_POST['password']),
-            'email'=> trim($_POST['email'])
+            'password' => trim($_POST['password']),
+            'email' => trim($_POST['email'])
         ];
 
         //User with the same email already exists
-        if($this->userModel->findUserByEmail($data['email'])){
+        if ($this->userModel->findUserByEmail($data['email'])) {
 
-         
+
             header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'Email already exists']);
             return;
-
-
         }
 
         //Passed valdiation checks
         //Hash password
-        $data['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
         //Register User
         header('Content-Type: application/json');
-        if($this->userModel->register($data)){
+        if ($this->userModel->register($data)) {
             echo json_encode(['success' => true]);
             exit;
-        }else {
+        } else {
             echo json_encode(['success' => false, 'message' => 'Something went wrong']);
             exit;
         }
-
     }
 
-    public function login(){
+    public function login()
+    {
         //Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
         //Init data
-        $data =[
+        $data = [
             'email' => trim($_POST['email']),
             'password' => trim($_POST['password'])
         ];
 
-        if($this->userModel->findUserByEmail($data['email'])){
+        if ($this->userModel->findUserByEmail($data['email'])) {
             //User found
-            $loggerInUser = $this->userModel->login($data['email'],$data['password']);
-            if($loggerInUser){
+            $loggerInUser = $this->userModel->login($data['email'], $data['password']);
+            if ($loggerInUser) {
                 $this->createUserSession($loggerInUser);
                 echo json_encode(['success' => true]);
-            exit;
-
-
-            }else{
+                exit;
+            } else {
                 echo json_encode(['success' => false, 'message' => 'Password Incorrect']);
                 exit;
             }
-        }else{
+        } else {
             echo json_encode(['success' => false, 'message' => 'No user found']);
             exit;
         }
     }
 
-    public function createUserSession($user){
-        $_SESSION['id']=$user->id;
-        $_SESSION['fullname']=$user->fullname;
-        $_SESSION['email']=$user->email;
-        $_SESSION['height']=$user->height;
-        $_SESSION['age']=$user->age;
-        $_SESSION['weight']=$user->weight;
-        $_SESSION['goal']=$user->goal;
+    public function createUserSession($user)
+    {
+        $_SESSION['id'] = $user->id;
+        $_SESSION['fullname'] = $user->fullname;
+        $_SESSION['email'] = $user->email;
     }
 
-    public function logout(){
+    public function logout()
+    {
         unset($_SESSION['id']);
         unset($_SESSION['fullname']);
         unset($_SESSION['email']);
@@ -102,10 +98,11 @@ class Users {
     }
 
     /////////////////////////// USER SETTINGS /////////////////////////////////////
-    public function update_user_details(){
+    public function update_user_details()
+    {
         //Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
+
         //Init data
         $data = [
             'user_id' => trim($_POST['user_id']),
@@ -115,23 +112,24 @@ class Users {
             'weight' => trim($_POST['weight']),
             'age' => trim($_POST['age'])
         ];
-    
-        if($this->userModel->update_user_details($data)){
+
+        if ($this->userModel->update_user_details($data)) {
             $updatedUser = $this->userModel->getUserById($data['user_id']);
             $this->createUserSession($updatedUser);
             echo json_encode(['success' => true]);
             exit;
-        }else{
+        } else {
             echo json_encode(['success' => false, 'message' => 'No user found']);
             exit;
         }
     }
 
 
-    public function update_user_credentials(){
+    public function update_user_credentials()
+    {
         //Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
+
         //Init data
         $data = [
             'user_id' => $_SESSION['id'],
@@ -139,24 +137,25 @@ class Users {
             'old_password' => trim($_POST['old_password']),
             'new_password' => trim($_POST['new_password']),
         ];
-    
-        if($this->userModel->update_user_credentials($data)){
+
+        if ($this->userModel->update_user_credentials($data)) {
             $updatedUser = $this->userModel->getUserById($data['user_id']);
             $this->createUserSession($updatedUser);
             echo json_encode(['success' => true]);
             exit;
-        }else{
+        } else {
             echo json_encode(['success' => false, 'message' => 'Old password incorrect']);
             exit;
         }
     }
 
-    
 
-    public function update_user_first_login(){
+
+    public function update_user_first_login()
+    {
         //Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
+
         //Init data
         $data = [
             'id' => trim($_POST['id']),
@@ -166,29 +165,25 @@ class Users {
             'weight' => trim($_POST['weight']),
             'age' => trim($_POST['age']),
             'gender' => trim($_POST['gender']),
-            'dailyCalories' =>trim($_POST['dailyCalories'])
+            'dailyCalories' => trim($_POST['dailyCalories'])
         ];
-    
-        if($this->userModel->update_user_first_login($data)){
+
+        if ($this->userModel->update_user_first_login($data)) {
             $updatedUser = $this->userModel->getUserById($data['id']);
             $this->createUserSession($updatedUser);
             echo json_encode(['success' => true]);
             exit;
-        }else{
+        } else {
             echo json_encode(['success' => false, 'message' => 'Something went wrong']);
             exit;
         }
     }
-
-    
-
 }
-
-$init = new Users ;
+$init = new Users;
 
 //Ensure that user is sending a POST request.
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    switch($_POST['action']){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    switch ($_POST['action']) {
         case 'register':
             $init->register();
             break;
@@ -205,17 +200,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $init->update_user_first_login();
             break;
         default:
-        header("Location: login.php"); // Redirect to login.php
-        exit;
+            header("Location: login.php"); // Redirect to login.php
+            exit;
     }
-}else{
-    switch($_GET['q']){
-        case 'logout' :
+} 
+/*
+else {
+    switch ($_GET['q']) {
+        case 'logout':
             $init->logout();
             break;
         default:
-        header("Location: login.php"); // Redirect to login.php
-        exit;
-
+            header("Location: login.php"); // Redirect to login.php
+            exit;
     }
 }
+*/
