@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use Dotenv\Dotenv;
+
 /**
  * PDO Database Class
  * Connect to database
@@ -12,10 +14,15 @@ namespace Config;
 
 class Database
 {
+
+    /*
     private $host = 'localhost:3308';
     private $user = 'root';
     private $pass = '';
     private $dbname = 'bd_nitru';
+    */
+
+
 
     // Will be the PDO object
     private $dbh;
@@ -24,7 +31,12 @@ class Database
 
     public function __construct()
     {
+        $host = $_ENV['DB_HOST'];
+        $user = $_ENV['DB_USERNAME'];
+        $pass = $_ENV['DB_PASSWORD'];
+        $dbname = $_ENV['DB_DATABASE'];
         // Set DSN
+        /*
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
             \PDO::ATTR_PERSISTENT => true,
@@ -37,6 +49,23 @@ class Database
             // echo 'Successfully Connected!' ;
 
 
+        } catch (\PDOException $e) {
+            $this->error = $e->getMessage();
+            echo $this->error;
+        }
+
+        */
+
+        $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname;
+        $options = array(
+            \PDO::ATTR_PERSISTENT => true,
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+        );
+
+        // Create PDO instance
+        try {
+            $this->dbh = new \PDO($dsn, $user, $pass, $options);
+            echo 'Successfully Connected!';
         } catch (\PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;

@@ -1,6 +1,6 @@
-function performAjax(action, data, successCallback, errorCallback) {
+function performAjax(data, successCallback, errorCallback) {
     $.ajax({
-        url: 'index.php?ajax_action=' + action,
+        url: 'index.php',
         type: 'POST',
         data: data,
         dataType: 'json',

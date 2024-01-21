@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <script src="../../public/js/ajax.js"></script>
+  <script src="public/js/ajax.js"></script>
 
   <script>
     // Exemple d'utilisation de performAjax pour l'enregistrement
@@ -60,10 +60,10 @@
       e.preventDefault();
 
       // Récupérez les données du formulaire
-      var formData = $('#form-data').serialize();
+      var formData = $('#form-data').serialize() + "&action=register";
 
       // Appel AJAX
-      performAjax('register', formData, function(response) {
+      performAjax(formData, function(response) {
         // Gérer la réponse réussie
         if (response.success) {
           alert('User registered successfully!');

@@ -18,6 +18,7 @@ class Users
         $this->userModel = new User();
     }
 
+
     public function register()
     {
         //Process form
@@ -32,6 +33,9 @@ class Users
         ];
 
         //User with the same email already exists
+        var_dump($data['email']);
+        var_dump($_POST['email']);
+
         if ($this->userModel->findUserByEmail($data['email'])) {
 
 
@@ -47,9 +51,11 @@ class Users
         //Register User
         header('Content-Type: application/json');
         if ($this->userModel->register($data)) {
+            echo 'registration en cours';
             echo json_encode(['success' => true]);
             exit;
         } else {
+            echo 'registration échouée';
             echo json_encode(['success' => false, 'message' => 'Something went wrong']);
             exit;
         }
@@ -97,31 +103,5 @@ class Users
         unset($_SESSION['email']);
         session_destroy();
         echo json_encode(['success' => true]);
-    }
-}
-
-$init = new Users;
-
-//Ensure that user is sending a POST request.
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    switch ($_POST['action']) {
-        case 'register':
-            $init->register();
-            break;
-        case 'login':
-            $init->login();
-            break;
-        default:
-            include __DIR__ . '/../Views/login.php';
-            exit;
-    }
-} else {
-    switch ($_GET['q']) {
-        case 'logout':
-            $init->logout();
-            break;
-        default:
-            include __DIR__ . '/../Views/login.php';
-            exit;
     }
 }
