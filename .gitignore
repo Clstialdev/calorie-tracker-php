@@ -3,3 +3,4 @@ composer.lock
 publicComposer
 .env
 doc
+db
