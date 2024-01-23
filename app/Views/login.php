@@ -49,7 +49,7 @@ require_once $rootPath . '/../../Config/Globals.php'
         <div class="flex flex-column mt-4">
           <input type="submit" class="py-3 px-4 bg-[#d6ff92] rounded w-full" name="login" id="login" value="Login">
         </div>
-        <a class="logo h-[66px] w-[66px] self-end" href="index.php?reset-password">
+        <a class="logo h-[66px] w-[66px] self-end" href="index.php?view=reset-password">
           Reset password
           <img src="" alt="" />
         </a>

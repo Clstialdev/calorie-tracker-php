@@ -1,5 +1,7 @@
 <?php
 
+namespace Manger\Controller;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\Exception\Exception;
 use PHPMailer\PHPMailer\SMTP;
@@ -129,23 +131,4 @@ class ResetPasswords
         echo json_encode(['success' => true]);
         exit;
     }
-}
-
-$init = new ResetPasswords;
-
-//Ensure that use is sending a post request
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    switch ($_POST['action']) {
-        case 'resetPassword':
-            $init->sendEmail();
-            break;
-        case 'newPassword':
-            $init->resetPassword();
-            break;
-        default:
-            header("location: login.php");
-    }
-} else {
-    header("location: login.php"); // Redirect to login.php
-    exit;
 }

@@ -3,11 +3,17 @@ session_start();
 require 'vendor/autoload.php';
 
 use Manger\Controller\Users;
+use Manger\Controller\ResetPasswords;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 $controller = new Users();
+$controllerPasswordLost = new ResetPasswords(); // attention car le constructeur emmène sur login.php
 
+if (empty($_GET) && empty($_POST)) {
+    include __DIR__ . '/app/Views/login.php';
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     switch ($_POST['action']) {
@@ -18,9 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $controller->login();
             break;
         case 'resetPassword': // à modifier (appel du controller etc)
-            include __DIR__ . '/../Views/reset-password.php';
+            $controllerPasswordLost->sendEmail();
             break;
-
+        case 'newPassword':
+            $controllerPasswordLost->resetPassword();
+            break;
         case 'update-user-details':
             $controller->update_user_details();
             break;
@@ -35,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
     }
 }
+
 
 /*
 if (isset($_GET['q'])) {
@@ -75,6 +84,3 @@ if (isset($_GET['view'])) {
         include __DIR__ . '/app/Views/' . $_GET['view'] . '.php';
     }
 }
-
-// vue par défaut
-//include __DIR__ . '/app/Views/login.php';
