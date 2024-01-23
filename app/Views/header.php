@@ -1,5 +1,4 @@
 <?php
-session_start();
 $rootPath = realpath(dirname(__FILE__));
 require_once $rootPath . '/../../Config/Globals.php'
 ?>
@@ -8,7 +7,7 @@ require_once $rootPath . '/../../Config/Globals.php'
   <div>
     <!-- Logo -->
     <div class="logo">
-      <img src="../calorie-tracker-php/public/images/logo.png" alt="" />
+      <img src="/../../public/images/logo.png" alt="" />
     </div>
     <!-- Nav -->
     <nav class="" style="padding-top: 130px">
@@ -41,19 +40,18 @@ require_once $rootPath . '/../../Config/Globals.php'
 
   <?php else : ?>
     <a class="logo" href="">
-      <img name="logout" id="logout" src="/../../public/images/icons/disconnect.png" alt="" />
+      <img name="logout" id="logout" src="/calorie-tracker-php/public/images/icons/disconnect.png" alt="" />
     </a>
   <?php endif; ?>
 </header>
 
-<script src="../../public/js/ajax.js"></script>
+<script src="/calorie-tracker-php/public/js/ajax.js"></script>
 <script type="text/javascript">
   $("#logout").click(function(e) {
     e.preventDefault();
-    performAjaxRequest(
-      "/calorie-tracker-php/app/controllers/Users.php",
+    performAjaxRequestGet(
       "logout",
-      "&q=logout",
+      "",
       "User logout successfully!",
       "Logout failed!"
     );

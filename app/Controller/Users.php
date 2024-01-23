@@ -83,9 +83,13 @@ class Users
 
     public function createUserSession($user)
     {
-        $_SESSION['id'] = $user->id;
-        $_SESSION['fullname'] = $user->fullname;
-        $_SESSION['email'] = $user->email;
+        $_SESSION['id']=$user->id;
+        $_SESSION['fullname']=$user->fullname;
+        $_SESSION['email']=$user->email;
+        $_SESSION['height']=$user->height;
+        $_SESSION['age']=$user->age;
+        $_SESSION['weight']=$user->weight;
+        $_SESSION['goal']=$user->goal;
     }
 
     public function logout()
@@ -93,8 +97,14 @@ class Users
         unset($_SESSION['id']);
         unset($_SESSION['fullname']);
         unset($_SESSION['email']);
+        unset($_SESSION['height']);
+        unset($_SESSION['age']);
+        unset($_SESSION['weight']);
+        unset($_SESSION['goal']);
+
         session_destroy();
         echo json_encode(['success' => true]);
+        exit;
     }
 
     /////////////////////////// USER SETTINGS /////////////////////////////////////
