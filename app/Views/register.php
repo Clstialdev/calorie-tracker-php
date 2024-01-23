@@ -37,7 +37,9 @@
         </div>
         <div class="flex flex-column mt-4">
           <label class="font-bold text-white">Password</label>
-          <input type="password" id="password" name="password" placeholder="Password" class="py-3 px-4 rounded mt-2" required />
+          <input type="password" id="password" name="password" placeholder="Password" class="py-3 px-4 rounded mt-2" required 
+          
+          />
         </div>
         <div class="flex flex-column mt-4">
           <label class="font-bold text-white">Repeat Password</label>
@@ -78,6 +80,7 @@
           "register",
           "",
           "User added successfully!",
+          "",
           "Registration failed!"
         );
       }

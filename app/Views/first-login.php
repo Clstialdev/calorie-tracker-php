@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="../../public/css/colors.css" />
+    <link rel="stylesheet" href="/calorie-tracker-php/public/css/colors.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -23,7 +23,7 @@
     
     if (isset($_SESSION['age']) && $_SESSION['age'] !== null) {
         // Redirect to home.php
-        header('Location: home.php');
+        header('Location: index.php?view=home');
         exit();
     }
     ?>
@@ -54,14 +54,14 @@
               value="<?php echo $_SESSION['id'] ?>"
             />
 
-        <div class="flex flex-column mt-4">
-    <label class="font-bold text-white">Gender</label>
-    <select class="py-3 px-4 rounded mt-2" id="gender" name="gender" required>
-        <option value="">Choose...</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-    </select>
-</div>
+                  <div class="flex flex-column mt-4">
+              <label class="font-bold text-white">Gender</label>
+              <select class="py-3 px-4 rounded mt-2" id="gender" name="gender" required>
+                  <option value="">Choose...</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+              </select>
+          </div>
 
 
           
@@ -186,34 +186,14 @@ $("#firstLogin").click(function(e){
         }).then((result) => {
             if (result.isConfirmed) {
                 // AJAX call if user confirms
-                $.ajax({
-                    url: "../controllers/Users.php",
-                    type: "POST",
-                    data: formData ,
-                    dataType: 'json', // Expect JSON response
-                    success: function(response) {
-                        if(response.success) {
-                            Swal.fire({
-                                title: 'Profile Created Successfully!',
-                                icon: 'success'
-                            });
-                            window.location.href = 'home.php'; // Navigate to home.php on success
-                        } else {
-                            Swal.fire({
-                                title: 'Registration Failed!',
-                                text: response.message, // Display the error message from the server
-                                icon: 'error'
-                            });
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        Swal.fire({
-                            title: 'AJAX Error!',
-                            text: 'Please try again. (' + textStatus + ')',
-                            icon: 'error'
-                        });
-                    }
-                });
+
+                performAjaxRequest(
+                  "first-login",
+                  "&dailyCalories=" + dailyCalories.toFixed(2),
+                  "Profile Created Successfully!",
+                  "Creation failed!"
+                );
+                
             }
         });
     }

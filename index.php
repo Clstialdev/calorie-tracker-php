@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require 'vendor/autoload.php';
 
 use Manger\Controller\Users;
@@ -9,15 +9,6 @@ $dotenv->load();
 $controller = new Users();
 
 
-function console_log($output, $with_script_tags = true)
-{
-    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-        ');';
-    if ($with_script_tags) {
-        $js_code = '<script>' . $js_code . '</script>';
-    }
-    echo $js_code;
-}
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     switch ($_POST['action']) {
         case 'register':
@@ -80,7 +71,8 @@ if (isset($_GET['action'])) {
 if (isset($_GET['view'])) {
     if ($_GET['view'] == 'settings') {
         include __DIR__ . '/app/Views/user/' . $_GET['view'] . '.php';
-    } else {
+    } 
+    else {
         include __DIR__ . '/app/Views/' . $_GET['view'] . '.php';
     }
 }
