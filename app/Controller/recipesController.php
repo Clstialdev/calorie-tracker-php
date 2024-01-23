@@ -1,15 +1,23 @@
 <?php
- require_once 'app/Model/recipesModel.php';
+namespace Manger\Controller;
+
+use Manger\Model\RecipesModel; // fonctionnel
  
 class RecipesController{
 
+    private $obj;
 
+    public function __construct()
+    {
+        $this->obj= New RecipesModel();
+    }
 
 function recipesCont()
 {
-    $obj= New RecipesModel();
-    $recipes = $obj->getRecipesList();
+    
+    $recipes = $this->obj->getRecipesList();
+    
     require_once 'app/Views/recipesList.php';
-    require_once 'app/views/addRecipe.php';
+    require_once 'app/Views/addRecipe.php';
 }
 }

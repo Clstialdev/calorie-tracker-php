@@ -19,7 +19,7 @@ class Database
     private $host = 'localhost:3308';
     private $user = 'root';
     private $pass = '';
-    private $dbname = 'bd_nitru';
+    private $dbname = 'ntierprojet';
     */
 
 
@@ -33,7 +33,7 @@ class Database
     {
         $host = $_ENV['DB_HOST'];
         $user = $_ENV['DB_USERNAME'];
-        $pass = $_ENV['DB_PASSWORD'];
+        $pass = $_ENV['DB_PASSWORD'];;
         $dbname = $_ENV['DB_DATABASE'];
         // Set DSN
 

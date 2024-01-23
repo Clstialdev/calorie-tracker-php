@@ -48,12 +48,12 @@ class User
 
     public function register($data)
     {
-        $this->db->query('INSERT INTO users (fullname, password,email,active,creation_date)
-        VALUES ( :fullname, :password , :email , 1 , NOW() )');
+        $this->db->query('INSERT INTO users (fullname,password,email,active,creation_date)
+        VALUES ( :fullname, :passwordd , :email , 1 , NOW() )');
 
         // Bind the data from the $data array to the named placeholders
         $this->db->bind(':fullname', $data['fullname']);
-        $this->db->bind(':password', $data['password']);
+        $this->db->bind(':passwordd', $data['password']);
         $this->db->bind(':email', $data['email']);
 
         try {
@@ -142,9 +142,9 @@ class User
                 return true;
             } else {
                 // Log error or get error details
-                $error = $this->db->errorInfo();
+                ////////////////////////$error = $this->db->errorInfo();
                 // Handle or log the error details
-                error_log("Database Error: " . $error[2]); // Error logging
+               ////////////// error_log("Database Error: " . $error[2]); // Error logging
                 return false;
             }
         } catch (\PDOException $e) {

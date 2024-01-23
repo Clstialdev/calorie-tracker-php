@@ -8,22 +8,22 @@ require_once $rootPath . '/../../Config/Globals.php'
   <div>
     <!-- Logo -->
     <div class="logo">
-      <img src="/../../public/images/logo.png" alt="" />
+      <img src="../calorie-tracker-php/public/images/logo.png" alt="" />
     </div>
     <!-- Nav -->
     <nav class="" style="padding-top: 130px">
       <ul class="d-flex flex-column align-items-center list-unstyled" style="gap: 5rem;">
         <li>
-          <a href=""><img src=" /../../public/images/icons/home.png" alt="" /></a>
+          <a href=""><img src=" /calorie-tracker-php/public/images/icons/home.png" alt="" /></a>
         </li>
         <li>
-          <a href=""><img src="/../../public/images/icons/calender.png" alt="" /></a>
+          <a href=""><img src="/calorie-tracker-php/public/images/icons/calender.png" alt="" /></a>
         </li>
         <li>
-          <a href=""><img src="/../../public/images/icons/market.png" alt="" /></a>
+          <a href=""><img src="/calorie-tracker-php/public/images/icons/market.png" alt="" /></a>
         </li>
         <li>
-          <a href="index.php?view=settings"><img src="/../../public/images/icons/user.png" alt="" /></a>
+          <a href="index.php?view=settings"><img src="/calorie-tracker-php/public/images/icons/user.png" alt="" /></a>
         </li>
       </ul>
     </nav>
