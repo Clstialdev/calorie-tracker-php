@@ -1,4 +1,4 @@
-function handleAjaxResponse(response, successTitle, successMessage, errorMessage) {
+function handleAjaxResponse(response, successTitle, successMessage) {
     if (response.success) {
         Swal.fire({
             title: successTitle,
@@ -11,12 +11,12 @@ function handleAjaxResponse(response, successTitle, successMessage, errorMessage
     } else {
         Swal.fire({
             title: 'Operation failed!',
-            text: errorMessage + ' ' + response.message,
+            text: response.message,
             icon: 'error'
         });
     }
 }
-function handleAjaxResponseRegister(response, successTitle, successMessage, errorMessage) {
+function handleAjaxResponseRegister(response, successTitle, successMessage) {
     if (response.success) {
         Swal.fire({
             title: successTitle,
@@ -29,13 +29,13 @@ function handleAjaxResponseRegister(response, successTitle, successMessage, erro
     } else {
         Swal.fire({
             title: 'Operation failed!',
-            text: errorMessage + ' ' + response.message,
+            text: response.message,
             icon: 'error'
         });
     }
 }
 
-function handleAjaxResponseFirstLogin(response, successTitle, successMessage, errorMessage) {
+function handleAjaxResponseFirstLogin(response, successTitle, successMessage) {
     if (response.success) {
         Swal.fire({
             title: successTitle,
@@ -48,13 +48,13 @@ function handleAjaxResponseFirstLogin(response, successTitle, successMessage, er
     } else {
         Swal.fire({
             title: 'Operation failed!',
-            text: errorMessage + ' ' + response.message,
+            text: response.message,
             icon: 'error'
         });
     }
 }
 
-function handleAjaxResponseLogout(response, successTitle, successMessage, errorMessage) {
+function handleAjaxResponseLogout(response, successTitle, successMessage) {
     if (response.success) {
         Swal.fire({
             title: successTitle,
@@ -66,13 +66,42 @@ function handleAjaxResponseLogout(response, successTitle, successMessage, errorM
     } else {
         Swal.fire({
             title: 'Operation failed!',
-            text: errorMessage + ' ' + response.message,
+            text: response.message,
             icon: 'error'
         });
     }
 }
 
-function handleAjaxError(jqXHR, textStatus) {
+/**
+ * @description Affiche le message d'erreur lorsqu'une requête Ajax échoue.
+ * Si l'erreur est envoyé 2 fois (comme pour register()), filtre le JSON pour 
+ * éviter le doublon
+ * 
+ * @param {*} jqXHR l'erreur récupérée depuis Users.php 
+ * @param {*} textStatus 
+ * @param {*} errorThrown 
+ */
+function handleAjaxError(jqXHR, textStatus, errorThrown) {
+    let errorMessage = textStatus;
+
+    if (jqXHR.responseText) {
+        const responseText = jqXHR.responseText.trim();
+        const jsonRegex = /\{.*?\}/g;
+        const jsonResults = responseText.match(jsonRegex);
+        if (jsonResults.length > 0) {
+            const responseObject = JSON.parse(jsonResults[0]);
+            errorMessage = responseObject.message;
+        }
+        console.error(errorMessage);
+        Swal.fire({
+            title: 'AJAX error!',
+            text: 'Please try again. (' + errorMessage + ')',
+            icon: 'error'
+        });
+    }
+}
+
+function handleAjaxErrorOld(jqXHR, textStatus, errorThrown) {
     Swal.fire({
         title: 'AJAX error !',
         text: 'Please try again. (' + textStatus + ')',
@@ -80,29 +109,33 @@ function handleAjaxError(jqXHR, textStatus) {
     });
 }
 
-function performAjaxRequest(action, additionalData, successTitle, successMessage, errorMessage) {
+function performAjaxRequest(requestType, action, additionalData, successTitle, successMessage) {
     console.log("dans ajax.js");
     $.ajax({
         url: "index.php",
-        type: "POST",
+        type: requestType,
         data: $("#form-data").serialize() + "&action=" + action + additionalData,
         dataType: 'json',
         success: function (response) {
             if (action == 'register') {
-                handleAjaxResponseRegister(response, successTitle, successMessage, errorMessage);
-            } else if (action == 'first-login'){
-                handleAjaxResponseFirstLogin(response, successTitle, successMessage, errorMessage);
-            } else {
-                handleAjaxResponse(response, successTitle, successMessage, errorMessage);
+                handleAjaxResponseRegister(response, successTitle, successMessage);
+            } else if (action == 'first-login') {
+                handleAjaxResponseFirstLogin(response, successTitle, successMessage);
+            } else if (action == 'logout') {
+                handleAjaxResponseLogout(response, successTitle, successMessage);
+            }
+            else {
+                handleAjaxResponse(response, successTitle, successMessage);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            handleAjaxError(jqXHR, textStatus);
+            handleAjaxError(jqXHR, textStatus, errorThrown);
         }
     });
 }
 
-function performAjaxRequestGet(action, additionalData, successTitle, successMessage, errorMessage) {
+/*
+function performAjaxRequestGet(action, additionalData, successTitle, successMessage) {
     console.log("dans logout ajax.js");
     $.ajax({
         url: "index.php",
@@ -111,11 +144,12 @@ function performAjaxRequestGet(action, additionalData, successTitle, successMess
         dataType: 'json',
         success: function (response) {
             if (action == 'logout') {
-                handleAjaxResponseLogout(response, successTitle, successMessage, errorMessage);
-            } 
+                handleAjaxResponseLogout(response, successTitle, successMessage);
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             handleAjaxError(jqXHR, textStatus);
         }
     });
 }
+*/

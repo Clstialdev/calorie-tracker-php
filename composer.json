@@ -9,7 +9,8 @@
     "autoload": {
         "psr-4": {
             "Manger\\": "app"
-        }
+        },
+        "files": []
     },
     "config": {
         "sort-packages": true

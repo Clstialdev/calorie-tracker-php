@@ -1,3 +1,8 @@
+<?php
+$rootPath = realpath(dirname(__FILE__));
+require_once $rootPath . '/../../Config/Globals.php'
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,8 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../../public/css/colors.css" />
-  <link rel="stylesheet" href="../../public/css/global.css" />
+  <link rel="stylesheet" href="<?= BASE_APP_DIR ?>/public/css/colors.css" />
+  <link rel="stylesheet" href="<?= BASE_APP_DIR ?>/public/css/global.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -37,9 +42,7 @@
         </div>
         <div class="flex flex-column mt-4">
           <label class="font-bold text-white">Password</label>
-          <input type="password" id="password" name="password" placeholder="Password" class="py-3 px-4 rounded mt-2" required 
-          
-          />
+          <input type="password" id="password" name="password" placeholder="Password" class="py-3 px-4 rounded mt-2" required />
         </div>
         <div class="flex flex-column mt-4">
           <label class="font-bold text-white">Repeat Password</label>
@@ -55,7 +58,7 @@
     </div>
   </div>
 
-  <script src="/../../public/js/ajax.js"></script>
+  <script src="<?= BASE_APP_DIR ?>/public/js/ajax.js"></script>
 
   <script type="text/javascript">
     $("#register").click(function(e) {
@@ -77,11 +80,11 @@
         }
 
         performAjaxRequest(
+          "POST",
           "register",
           "",
           "User added successfully!",
-          "",
-          "Registration failed!"
+          ""
         );
       }
     });

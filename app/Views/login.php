@@ -1,3 +1,9 @@
+<?php
+$rootPath = realpath(dirname(__FILE__));
+require_once $rootPath . '/../../Config/Globals.php'
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +12,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/calorie-tracker-php/public/css/colors.css" />
+  <link rel="stylesheet" href="<?= BASE_APP_DIR ?> /public/css/colors.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <link rel="stylesheet" href="/calorie-tracker-php/public/css/global.css" />
+  <link rel="stylesheet" href="<?= BASE_APP_DIR ?> /public/css/global.css" />
 
 </head>
 
@@ -43,7 +49,7 @@
         <div class="flex flex-column mt-4">
           <input type="submit" class="py-3 px-4 bg-[#d6ff92] rounded w-full" name="login" id="login" value="Login">
         </div>
-        <a class="logo h-[66px] w-[66px] self-end" href="reset-password.php">
+        <a class="logo h-[66px] w-[66px] self-end" href="index.php?reset-password">
           Reset password
           <img src="" alt="" />
         </a>
@@ -52,7 +58,7 @@
   </div>
 
 
-  <script src="/calorie-tracker-php/public/js/ajax.js"></script>
+  <script src="<?= BASE_APP_DIR ?> /public/js/ajax.js"></script>
 
   <script type="text/javascript">
     $("#login").click(function(e) {
@@ -60,10 +66,10 @@
       if ($("#form-data")[0].checkValidity()) {
         e.preventDefault();
         performAjaxRequest(
+          "POST",
           "login",
           "",
-          "User login successfully!",
-          "Login failed!"
+          "User login successfully!"
         );
       }
     });
