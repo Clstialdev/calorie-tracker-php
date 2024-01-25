@@ -10,6 +10,24 @@ require_once $rootPath . '/../../Config/Globals.php'
       <img src="/calorie-tracker-php/public/images/logo.png" alt="" />
     </div>
     <!-- Nav -->
+</div>
+    
+  <!-- Disconnect / Connect -->
+  <?php if (!isset($_SESSION['id'])) : ?>
+    <div>
+    <a class="logo" href="index.php?view=login">
+      Login
+      <img src="" alt="" />
+    </a>
+    <a class="logo" href="index.php?view=register">
+      S'inscrire
+      <img src="" alt="" />
+    </a>
+  </div>
+
+  <?php else : ?>
+
+    <div>
     <nav class="" style="padding-top: 130px">
       <ul class="d-flex flex-column align-items-center list-unstyled" style="gap: 5rem;">
         <li>
@@ -27,18 +45,7 @@ require_once $rootPath . '/../../Config/Globals.php'
       </ul>
     </nav>
   </div>
-  <!-- Disconnect / Connect -->
-  <?php if (!isset($_SESSION['id'])) : ?>
-    <a class="logo" href="index.php?view=login">
-      Login
-      <img src="" alt="" />
-    </a>
-    <a class="logo" href="index.php?view=register">
-      S'inscrire
-      <img src="" alt="" />
-    </a>
 
-  <?php else : ?>
     <a class="logo" href="">
       <img name="logout" id="logout" src="<?= BASE_APP_DIR ?> /public/images/icons/disconnect.png" alt="" />
     </a>

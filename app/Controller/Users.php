@@ -1,10 +1,10 @@
 <?php
 
-
 namespace Manger\Controller;
 
 use Manger\Model\User; // fonctionnel
 use Manger\Helpers\Session_Helper; // fonctionnel
+
 class Users
 {
 
@@ -19,20 +19,23 @@ class Users
     public function register()
     {
         //Process form
-        //Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // Sanitize email
+        $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+        $fullname = trim($_POST['fullname'] ?? '');
+        $password = trim($_POST['password'] ?? '');
 
-        //Init data
+        // Initialize data
         $data = [
-            'fullname' => trim($_POST['fullname']),
-            'password' => trim($_POST['password']),
-            'email' => trim($_POST['email'])
+            'fullname' => $fullname,
+            'password' => $password,
+            'email' => $email
         ];
+
 
         //User with the same email already exists
         if ($this->userModel->findUserByEmail($data['email'])) {
             header('Content-Type: application/json');
-            http_response_code(400); // Bad Request
+          //  http_response_code(400); 
             echo json_encode(['success' => false, 'message' => 'Email already exists']);
             return;
         }
@@ -54,14 +57,17 @@ class Users
 
     public function login()
     {
-        //Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+         // Sanitize email
+    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
 
-        //Init data
-        $data = [
-            'email' => trim($_POST['email']),
-            'password' => trim($_POST['password'])
-        ];
+    // Passwords should not be altered too much but trim whitespace
+    $password = trim($_POST['password'] ?? '');
+
+    // Initialize data
+    $data = [
+        'email' => $email,
+        'password' => $password
+    ];
 
         if ($this->userModel->findUserByEmail($data['email'])) {
             //User found
@@ -158,24 +164,30 @@ class Users
         }
     }
 
-
-
     public function update_user_first_login()
     {
-        //Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // Sanitize each POST field individually
+        $id = filter_var(trim($_POST['id'] ?? ''), FILTER_SANITIZE_NUMBER_INT);
+        $fullname = filter_var(trim($_SESSION['fullname'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $goal = filter_var(trim($_POST['goal'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $height = filter_var(trim($_POST['height'] ?? ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $weight = filter_var(trim($_POST['weight'] ?? ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $age = filter_var(trim($_POST['age'] ?? ''), FILTER_SANITIZE_NUMBER_INT);
+        $gender = filter_var(trim($_POST['gender'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $dailyCalories = filter_var(trim($_POST['dailyCalories'] ?? ''), FILTER_SANITIZE_NUMBER_INT);
 
-        //Init data
+        // Initialize data
         $data = [
-            'id' => trim($_POST['id']),
-            'fullname' => trim($_SESSION['fullname']),
-            'goal' => trim($_POST['goal']),
-            'height' => trim($_POST['height']),
-            'weight' => trim($_POST['weight']),
-            'age' => trim($_POST['age']),
-            'gender' => trim($_POST['gender']),
-            'dailyCalories' => trim($_POST['dailyCalories'])
+            'id' => $id,
+            'fullname' => $fullname,
+            'goal' => $goal,
+            'height' => $height,
+            'weight' => $weight,
+            'age' => $age,
+            'gender' => $gender,
+            'dailyCalories' => $dailyCalories
         ];
+
 
         if ($this->userModel->update_user_first_login($data)) {
             $updatedUser = $this->userModel->getUserById($data['id']);
@@ -188,40 +200,4 @@ class Users
         }
     }
 }
-$init = new Users;
 
-//Ensure that user is sending a POST request.
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    switch ($_POST['action']) {
-        case 'register':
-            $init->register();
-            break;
-        case 'login':
-            $init->login();
-            break;
-        case 'update-user-details':
-            $init->update_user_details();
-            break;
-        case 'update-user-credentials':
-            $init->update_user_credentials();
-            break;
-        case 'first-login':
-            $init->update_user_first_login();
-            break;
-        default:
-            header("Location: login.php"); // Redirect to login.php
-            exit;
-    }
-} 
-/*
-else {
-    switch ($_GET['q']) {
-        case 'logout':
-            $init->logout();
-            break;
-        default:
-            header("Location: login.php"); // Redirect to login.php
-            exit;
-    }
-}
-*/

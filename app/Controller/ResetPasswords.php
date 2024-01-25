@@ -34,8 +34,9 @@ class ResetPasswords
     public function sendEmail()
     {
         //Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $email = trim($_POST['email']);
+        $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+
+       
 
         if ($this->userModel->findUserByEmail($email)) {
 
@@ -44,8 +45,8 @@ class ResetPasswords
             $selector = bin2hex(random_bytes(8));
             //Will be used for confirmation once the database entry has been matched
             $token = random_bytes(32);
-            $url = 'localhost/Projet_nit_test/app/views/create-new-password.php?selector=' . $selector . '&
-        validator=' . bin2hex($token);
+        $url = 'http://localhost/calorie-tracker-php/calorie-tracker-php/index.php?view=create-new-password&selector=' . $selector . '&validator=' . bin2hex($token);
+
 
             //Expiration date will last for half an hour
             $expires = date("U") + 1800;
@@ -86,14 +87,20 @@ class ResetPasswords
     public function resetPassword()
     {
         //Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // Sanitize each POST field individually
+        $selector = filter_var(trim($_POST['selector'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $validator = filter_var(trim($_POST['validator'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $password = trim($_POST['password'] ?? ''); // Passwords should generally not be altered, just trimmed.
 
+        // Initialize data
         $data = [
-            'selector' => trim($_POST['selector']),
-            'validator' => trim($_POST['validator']),
-            'password' => trim($_POST['password'])
-
+            'selector' => $selector,
+            'validator' => $validator,
+            'password' => $password
         ];
+
+
+        
         $url = '../create-new-password.php?selector=' . $data['selector'] . '&validator='
             . $data['validator'];
 
