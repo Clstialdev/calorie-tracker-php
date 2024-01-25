@@ -1,8 +1,10 @@
 <?php
 
+namespace Manger\Model;
+
 use Config\Database;
 
-class ResetPassword
+class ResetPasswordModel
 {
 
     private $db;

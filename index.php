@@ -3,26 +3,32 @@ session_start();
 require 'vendor/autoload.php';
 
 use Manger\Controller\Users;
+use Manger\Controller\ResetPasswords;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 $controller = new Users();
+$controllerPasswordLost = new ResetPasswords(); // attention car le constructeur emmène sur login.php
 
+if (empty($_GET) && empty($_POST)) {
+    include __DIR__ . '/app/Views/login.php';
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     switch ($_POST['action']) {
         case 'register':
-            console_log("dans register index");
             $controller->register();
             break;
         case 'login':
-            console_log("dans login index");
             $controller->login();
             break;
         case 'resetPassword': // à modifier (appel du controller etc)
-            include __DIR__ . '/../Views/reset-password.php';
+            $controllerPasswordLost->sendEmail();
             break;
-
+        case 'newPassword':
+            $controllerPasswordLost->resetPassword();
+            break;
         case 'update-user-details':
             $controller->update_user_details();
             break;
@@ -39,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
+/*
 if (isset($_GET['q'])) {
     switch ($_GET['q']) {
         case 'logout':
@@ -49,7 +56,7 @@ if (isset($_GET['q'])) {
             exit;
     }
 }
-
+*/
 
 if (isset($_GET['action'])) {
     $ajaxAction = $_GET['action'];
@@ -60,6 +67,8 @@ if (isset($_GET['action'])) {
         case 'login':
             $controller->login();
             break;
+        case 'logout':
+            $controller->logout();
             // ... autres actions ...
         default:
             // Gérer les actions inconnues ou non autorisées
@@ -71,11 +80,7 @@ if (isset($_GET['action'])) {
 if (isset($_GET['view'])) {
     if ($_GET['view'] == 'settings') {
         include __DIR__ . '/app/Views/user/' . $_GET['view'] . '.php';
-    } 
-    else {
+    } else {
         include __DIR__ . '/app/Views/' . $_GET['view'] . '.php';
     }
 }
-
-// vue par défaut
-include __DIR__ . '/app/Views/login.php';

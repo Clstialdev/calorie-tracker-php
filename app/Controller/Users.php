@@ -31,14 +31,13 @@ class Users
 
         //User with the same email already exists
         if ($this->userModel->findUserByEmail($data['email'])) {
-
-
             header('Content-Type: application/json');
+            http_response_code(400); // Bad Request
             echo json_encode(['success' => false, 'message' => 'Email already exists']);
             return;
         }
 
-        //Passed valdiation checks
+        //Passed validation checks
         //Hash password
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
@@ -83,13 +82,13 @@ class Users
 
     public function createUserSession($user)
     {
-        $_SESSION['id']=$user->id;
-        $_SESSION['fullname']=$user->fullname;
-        $_SESSION['email']=$user->email;
-        $_SESSION['height']=$user->height;
-        $_SESSION['age']=$user->age;
-        $_SESSION['weight']=$user->weight;
-        $_SESSION['goal']=$user->goal;
+        $_SESSION['id'] = $user->id;
+        $_SESSION['fullname'] = $user->fullname;
+        $_SESSION['email'] = $user->email;
+        $_SESSION['height'] = $user->height;
+        $_SESSION['age'] = $user->age;
+        $_SESSION['weight'] = $user->weight;
+        $_SESSION['goal'] = $user->goal;
     }
 
     public function logout()

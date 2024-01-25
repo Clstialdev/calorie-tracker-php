@@ -1,6 +1,7 @@
 /vendor/*
 composer.lock
-publicComposer
 .env
-doc
-db
+doc/*
+db/*
+
+Config/Globals.php
