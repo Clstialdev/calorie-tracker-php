@@ -41,42 +41,44 @@ require_once $rootPath . '/../../Config/Globals.php'
         ?>
       </h1>
 
-    </div>
-  </div>
-
-  <div class="w-full min-h-screen pl-[180px] bg-bg">
+  
 
 
-  <div class="container">
-      <div class="row">
-        <div class="col lg 12">
-          <h4 class="text-center text-danger font-weight-normal my-3"> Users Table </h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
 
-        </div>
-        <div class="col-lg-6">
-          <button type="button" class="btn btn-primary m1 float-right " data-toggle="modal" data-target="#addModel"> <i class="fas fa-user-plus fa-lg"></i> Add new user </button>
-        </div>
-      </div>
-      <hr class="my-1">
+    <div class="container">
         <div class="row">
-          <div class="col-lg-12">
-            <div class="table-responsive" id="showUser">
-              
-              
-                  
-            </div>
+          <div class="col lg 12">
+          <h1 class="text-5xl font-bold"> Users Table</h1>
+
           </div>
         </div>
-      </hr>
+        <div class="row">
+          <div class="col-lg-6">
+
+          </div>
+          <div class="col-lg-6">
+            <button type="button" class="btn btn-primary m1 float-right " data-toggle="modal" data-target="#addModel"> <i class="fas fa-user-plus fa-lg"></i> Add new user </button>
+          </div>
+        </div>
+        <hr class="my-1">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="table-responsive" id="showUser">
+                
+                
+                    
+              </div>
+            </div>
+          </div>
+        </hr>
+      </div>
+    </div>
       </div>
       </div>
+
        
 
-
+      </div>
 <!-- Correct Order and Single Version of jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
