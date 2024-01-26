@@ -16,6 +16,7 @@ function handleAjaxResponse(response, successTitle, successMessage) {
         });
     }
 }
+
 function handleAjaxResponseRegister(response, successTitle, successMessage) {
     if (response.success) {
         Swal.fire({
@@ -76,7 +77,7 @@ function handleAjaxError(jqXHR, textStatus, errorThrown) {
     console.error('AJAX Error:', textStatus, errorThrown, jqXHR.responseText);
     Swal.fire({
         title: 'AJAX error !',
-        text: 'Please try again. (' + textStatus +'/ //' +  jqXHR.responseText +')',
+        text: 'Please try again. (' + textStatus +' : ' +  jqXHR.responseText +')',
         icon: 'error'
     });
 }
@@ -119,6 +120,8 @@ function handleAjaxResponseNewPassword(response, successTitle, successMessage) {
     }
 }
 
+
+
 function performAjaxRequest(requestType, action, additionalData, successTitle, successMessage) {
     console.log("dans ajax.js");
     $.ajax({
@@ -137,8 +140,10 @@ function performAjaxRequest(requestType, action, additionalData, successTitle, s
                 handleAjaxResponseResetPassword(response, successTitle, successMessage);
             } else if (action == 'newPassword'){
                 handleAjaxResponseNewPassword(response, successTitle, successMessage);
-            }
-            else {
+            } else if (action == 'showAllUsers'){
+                $("#showUser").html(response.message);
+                $("table").DataTable({order:[0,'desc'] });
+            } else {
                 handleAjaxResponse(response, successTitle, successMessage);
             }
         },

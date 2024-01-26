@@ -16,6 +16,26 @@ class User
 
         $this->db = new Database();
     }
+
+    public function getAllUsers(){
+        $data =array();
+        $sql ="SELECT * FROM users";
+
+        $this->db->query($sql);
+
+        $rows = $this->db->resultSet();
+
+        if ($this->db->rowCount() > 0) {
+
+            foreach($rows as $row){
+                $data [] =$row;
+            }
+            return $data;
+        } else {
+            return false;
+        }  
+    }
+
     public function getUserById($userId)
     {
         $sql = "SELECT * FROM users WHERE id = :user_id";

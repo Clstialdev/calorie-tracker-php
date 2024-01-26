@@ -48,6 +48,9 @@ class Router {
         case 'first-login':
             $this->userController->update_user_first_login();
             break;
+        case 'showAllUsers':
+                $this->userController->showAllUsers();
+                break;
         default:
             include __DIR__ . '/../Views/login.php';
             exit;

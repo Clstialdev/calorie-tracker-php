@@ -16,6 +16,51 @@ class Users
         $this->userModel = new User();
     }
 
+   
+
+    public function showAllUsers(){
+       
+       
+        header('Content-Type: application/json');
+        $data = $this->userModel->getAllUsers();
+
+   if($data){
+    $output = '';
+    
+    
+    //print_r($data);
+
+    $output .= '<table class="table table-striped table-sm table-bordered">
+    <thead>
+      <tr class="text-center">
+        <th>ID</th>
+        <th>Full name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>';
+    foreach($data as $row){
+      $output .='<tr class="text-center text-secondary">
+        <td > '.$row['id'].'</td>
+        <td > '.$row['fullname'].'</td>
+        <td > '.$row['email'].'</td>
+        <td>
+              <a href="#" title="View Details" class="text-success infoBtn" id="'.$row['id'].'"><i class="fas fa-info-circle fa-lg"></i>&nbsp;&nbsp;</a>
+              <a href="#" title="Edit" class="text-primary editBtn" data-toggle="modal" data-target="#editModal" id="'.$row['id'].'"><i class="fas fa-edit fa-lg"></i>&nbsp;&nbsp;</a>
+              <a href="#" title="Delete" class="text-danger delBtn" id="'.$row['id'].'"><i class="fas fa-trash-alt fa-lg"></i></a>
+            </td>
+          </tr>
+      ';
+    }
+    $output .='</tbody></table>';
+    echo json_encode(['message' =>  $output ]);
+    exit;
+   }else{
+    echo json_encode(['message' => '<h3 class="text-center text-secondary mt-5"> :( No any user present in teh database !!  </h3>']);
+    exit;
+   }
+    }
     public function register()
     {
         //Process form

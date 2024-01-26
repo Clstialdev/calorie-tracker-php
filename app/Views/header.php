@@ -7,7 +7,7 @@ require_once $rootPath . '/../../Config/Globals.php'
   <div>
     <!-- Logo -->
     <div class="logo">
-      <img src="/calorie-tracker-php/public/images/logo.png" alt="" />
+      <img src="<?= BASE_APP_DIR ?> /public/images/logo.png" alt="" />
     </div>
     <!-- Nav -->
 </div>
