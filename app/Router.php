@@ -69,21 +69,13 @@ class Router {
                 }
             }
             elseif (isset($_GET['view'])) {
-                $this->loadView($_GET['view']);
+                $this->userController->loadView($_GET['view']);
             }
         }
         // Additional request handling can be added here
     }
     
-    private function loadView($view) {
-        $filePath = VIEWSDIR . DS . ($view == 'settings' ? 'user' . DS : '') . $view . '.php';
-        
-        if (file_exists($filePath)) {
-            include $filePath;
-        } else {
-            echo "Page not found";
-        }
-    }
+    
     
     
     

@@ -5,7 +5,7 @@ function handleAjaxResponse(response, successTitle, successMessage) {
             text: successMessage,
             icon: 'success'
         }).then(function () {
-            window.location.href = 'index.php?view=first-login';
+           window.location.href = 'index.php?view=first-login';
         });
         $("#form-data")[0].reset();
     } else {
@@ -128,7 +128,7 @@ function performAjaxRequest(requestType, action, additionalData, successTitle, s
         url: "index.php",
         type: requestType,
         data: $("#form-data").serialize() + "&action=" + action + additionalData,
-        dataType: 'json',
+        dataType: 'json',   
         success: function (response) {
             if (action == 'register') {
                 handleAjaxResponseRegister(response, successTitle, successMessage);

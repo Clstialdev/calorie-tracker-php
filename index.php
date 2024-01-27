@@ -20,4 +20,5 @@ $dotenv->load();
 
 $r = new Router();
 $r->manageRequest();
+
 ?>

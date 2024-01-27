@@ -37,7 +37,7 @@ require_once $rootPath . '/../../Config/Globals.php'
           <a href=""><img src="<?= BASE_APP_DIR ?> /public/images/icons/calender.png" alt="" /></a>
         </li>
         <li>
-          <a href=""><img src="<?= BASE_APP_DIR ?> /public/images/icons/market.png" alt="" /></a>
+          <a href="index.php?view=recipes"><img src="<?= BASE_APP_DIR ?> /public/images/icons/market.png" alt="" /></a>
         </li>
         <li>
           <a href="index.php?view=settings"><img src="<?= BASE_APP_DIR ?> /public/images/icons/user.png" alt="" /></a>

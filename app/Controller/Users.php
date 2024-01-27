@@ -17,50 +17,27 @@ class Users
     }
 
    
+public function showAllUsers() {
+    header('Content-Type: application/json');
+    $data = $this->userModel->getAllUsers();
 
-    public function showAllUsers(){
-       
-       
-        header('Content-Type: application/json');
-        $data = $this->userModel->getAllUsers();
+    // Start output buffering
+    ob_start();
+    // Include the view file, the $data variable will be used there
+    require VIEWSDIR.DS.'components'.DS.'admin'.DS.'users-table.php';
+    // Store the buffer content into a variable
+    $output = ob_get_clean();
 
-   if($data){
-    $output = '';
-    
-    
-    //print_r($data);
-
-    $output .= '<table class="table table-striped table-sm table-bordered">
-    <thead>
-      <tr class="text-center">
-        <th>ID</th>
-        <th>Full name</th>
-        <th>Email</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>';
-    foreach($data as $row){
-      $output .='<tr class="text-center text-secondary">
-        <td > '.$row['id'].'</td>
-        <td > '.$row['fullname'].'</td>
-        <td > '.$row['email'].'</td>
-        <td>
-              <a href="#" title="View Details" class="text-success infoBtn" id="'.$row['id'].'"><i class="fas fa-info-circle fa-lg"></i>&nbsp;&nbsp;</a>
-              <a href="#" title="Edit" class="text-primary editBtn" data-toggle="modal" data-target="#editModal" id="'.$row['id'].'"><i class="fas fa-edit fa-lg"></i>&nbsp;&nbsp;</a>
-              <a href="#" title="Delete" class="text-danger delBtn" id="'.$row['id'].'"><i class="fas fa-trash-alt fa-lg"></i></a>
-            </td>
-          </tr>
-      ';
+    // Return JSON
+    if ($data) {
+        echo json_encode(['message' => $output]);
+        exit;
+    } else {
+       echo json_encode(['message' => '<h3 class="text-center text-secondary mt-5">:( No users present in the database!</h3>']);
+       exit;
     }
-    $output .='</tbody></table>';
-    echo json_encode(['message' =>  $output ]);
-    exit;
-   }else{
-    echo json_encode(['message' => '<h3 class="text-center text-secondary mt-5"> :( No any user present in teh database !!  </h3>']);
-    exit;
-   }
-    }
+}
+
     public function register()
     {
         //Process form
@@ -92,7 +69,7 @@ class Users
         //Register User
         header('Content-Type: application/json');
         if ($this->userModel->register($data)) {
-            echo json_encode(['success' => true]);
+            echo json_encode(['success' => true, 'redirect' => 'login.php']);
             exit;
         } else {
             echo json_encode(['success' => false, 'message' => 'Something went wrong']);
@@ -244,5 +221,18 @@ class Users
             exit;
         }
     }
+
+
+    public function loadView($view) {
+        $filePath = VIEWSDIR . DS . ($view == 'settings' ? 'user' . DS : '') . $view . '.php';
+        
+        if (file_exists($filePath)) {
+            include $filePath;
+        } else {
+            echo "Page not found";
+        }
+    }
+
 }
+
 

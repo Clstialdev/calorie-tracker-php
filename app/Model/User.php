@@ -65,7 +65,7 @@ class User
             return false;
         }
     }
-
+  
     public function register($data)
     {
         $this->db->query('INSERT INTO users (fullname,password,email,active,creation_date)
