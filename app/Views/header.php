@@ -7,7 +7,7 @@ require_once $rootPath . '/../../Config/Globals.php'
   <div>
     <!-- Logo -->
     <div class="logo">
-      <img src="<?= ROOT ?> /public/images/logo.png" alt="" />
+      <img src="<?=BASE_APP_DIR ?>/public/images/logo.png" alt="" />
     </div>
     <!-- Nav -->
 </div>
@@ -31,28 +31,28 @@ require_once $rootPath . '/../../Config/Globals.php'
     <nav class="" style="padding-top: 130px">
       <ul class="d-flex flex-column align-items-center list-unstyled" style="gap: 5rem;">
         <li>
-          <a href=""><img src="<?= ROOT ?> /public/images/icons/home.png" alt="" /></a>
+          <a href=""><img src="<?=BASE_APP_DIR ?>/public/images/icons/home.png" alt="" /></a>
         </li>
         <li>
-          <a href=""><img src="<?= ROOT ?> /public/images/icons/calender.png" alt="" /></a>
+          <a href=""><img src="<?=BASE_APP_DIR ?>/public/images/icons/calender.png" alt="" /></a>
         </li>
         <li>
-          <a href="index.php?view=recipes"><img src="<?= ROOT ?> /public/images/icons/market.png" alt="" /></a>
+          <a href="index.php?view=recipes"><img src="<?=BASE_APP_DIR ?>/public/images/icons/market.png" alt="" /></a>
         </li>
         <li>
-          <a href="index.php?view=settings"><img src="<?= ROOT ?> /public/images/icons/user.png" alt="" /></a>
+          <a href="index.php?view=settings"><img src="<?=BASE_APP_DIR ?>/public/images/icons/user.png" alt="" /></a>
         </li>
       </ul>
     </nav>
   </div>
 
     <a class="logo" href="">
-      <img name="logout" id="logout" src="<?= ROOT ?> /public/images/icons/disconnect.png" alt="" />
+      <img name="logout" id="logout" src="<?=BASE_APP_DIR ?>/public/images/icons/disconnect.png" alt="" />
     </a>
   <?php endif; ?>
 </header>
 
-<script src="<?= ROOT ?> /public/js/ajax.js"></script>
+<script src="<?=BASE_APP_DIR ?>/public/js/ajax.js"></script>
 <script type="text/javascript">
   $("#logout").click(function(e) {
     e.preventDefault();
