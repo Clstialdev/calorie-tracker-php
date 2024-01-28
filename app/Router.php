@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . DS . 'Controller' . DS . 'Users.php';
-require_once __DIR__ . DS . 'Controller' . DS . 'ResetPasswords.php';
+require_once CONTROLLERSDIR . DS . 'Users.php';
+require_once CONTROLLERSDIR . DS . 'ResetPasswords.php';
 
 use Manger\Controller;
 
@@ -19,7 +19,7 @@ class Router {
     public function manageRequest() {
 
         if (empty($_GET) && empty($_POST)) {
-            include __DIR__ . '/app/Views/login.php';
+            include VIEWSDIR. DS . 'login.php';
             exit;
         }
 
