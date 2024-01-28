@@ -18,10 +18,13 @@ class Router {
     
     public function manageRequest() {
 
-        if (empty($_GET) && empty($_POST)) {
-            include VIEWSDIR. DS . 'login.php';
-            exit;
-        }
+        $uriSegments = explode('/', $_SERVER['REQUEST_URI']);
+        $requested = $uriSegments[2];
+
+        // if (empty($_GET) && empty($_POST)) {
+        //     include VIEWSDIR. DS . 'login.php';
+        //     exit;
+        // }
 
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -57,19 +60,30 @@ class Router {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
             // Handling GET requests
-            if (isset($_GET['action'])) {
-                switch ($_GET['action']) {
-                    case 'logout':
-                        $this->userController->logout();
-                        break;
-                    // Add more cases as needed
-                    default:
-                        // Default action or error handling
-                        break;
-                }
-            }
-            elseif (isset($_GET['view'])) {
-                $this->userController->loadView($_GET['view']);
+            // if (isset($_GET['action'])) {
+            //     switch ($_GET['action']) {
+            //         case 'logout':
+            //             $this->userController->logout();
+            //             break;
+            //         // Add more cases as needed
+            //         default:
+            //             // Default action or error handling
+            //             break;
+            //     }
+            // }
+            // elseif (isset($_GET['view'])) {
+            //     $this->userController->loadView($_GET['view']);
+            // }
+
+            switch ($requested) {
+                case 'login':
+                    $this->userController->GETlogin();
+                    
+                    break;
+                
+                default:
+                    # code...
+                    break;
             }
         }
         // Additional request handling can be added here

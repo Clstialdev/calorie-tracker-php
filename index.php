@@ -12,6 +12,7 @@ define('CLASSDIR', ROOT . DS . 'app');
 define('CONTROLLERSDIR', CLASSDIR . DS . 'Controller');
 define('MODELSDIR', CLASSDIR . DS . 'Model');
 define('VIEWSDIR', CLASSDIR . DS . 'Views');
+define('TEMPLATESDIR', VIEWSDIR . DS . 'templates');
 
 require CLASSDIR . DS . 'Router.php';
 

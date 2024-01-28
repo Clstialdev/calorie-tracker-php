@@ -4,6 +4,7 @@ namespace Manger\Controller;
 
 use Manger\Model\User; // fonctionnel
 use Manger\Helpers\Session_Helper; // fonctionnel
+use Manger\View\UserView;
 
 class Users
 {
@@ -75,6 +76,17 @@ public function showAllUsers() {
             echo json_encode(['success' => false, 'message' => 'Something went wrong']);
             exit;
         }
+    }
+
+    public function GETlogin(){
+        require_once VIEWSDIR.DS.'UserView.php';
+
+        $UserView = new UserView();
+
+        $html=$UserView->view_login();
+
+        echo $html;
+        http_response_code(200);
     }
 
     public function login()

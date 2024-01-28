@@ -1,6 +1,6 @@
 <?php
-$rootPath = realpath(dirname(__FILE__));
-require_once $rootPath . '/../../Config/Globals.php'
+$rootPath = ROOT;
+require_once $rootPath . '/Config/Globals.php'
 ?>
 
 
@@ -23,7 +23,7 @@ require_once $rootPath . '/../../Config/Globals.php'
 <body>
   <!-- HEADER -->
   <?php
-  include_once 'header.php';
+  include_once VIEWSDIR.DS.'components'.DS.'header.php';
 
 
 
