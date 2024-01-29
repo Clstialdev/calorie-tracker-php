@@ -111,7 +111,7 @@ class User
         $this->db->bind(':height', $data['height']);
         $this->db->bind(':weight', $data['weight']);
         $this->db->bind(':age', $data['age']);
-        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':user_id', $data['id']);
 
         if ($this->db->execute()) {
             return true;
@@ -122,7 +122,7 @@ class User
     public function update_user_credentials($data)
     {
         $this->db->query('SELECT password FROM users WHERE id = :user_id');
-        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':user_id', $data['id']);
         $this->db->execute();
         $currentPassword = $this->db->single()->password;
 
@@ -138,7 +138,7 @@ class User
         $this->db->query('UPDATE users SET email = :email, password = :password WHERE id = :user_id');
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $hashedPassword);
-        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':user_id', $data['id']);
 
         if ($this->db->execute()) {
             return true;

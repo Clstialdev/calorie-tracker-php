@@ -17,6 +17,19 @@ class Users
         $this->userModel = new User();
     }
 
+
+
+    public function GETPage($page){
+        require_once VIEWSDIR.DS.'UserView.php';
+
+        $UserView = new UserView();
+
+        $html=$UserView->view_page($page);
+
+        echo $html;
+        http_response_code(200);
+    }
+
    
 public function showAllUsers() {
     header('Content-Type: application/json');
@@ -38,6 +51,8 @@ public function showAllUsers() {
        exit;
     }
 }
+
+
 
     public function register()
     {
@@ -78,16 +93,7 @@ public function showAllUsers() {
         }
     }
 
-    public function GETlogin(){
-        require_once VIEWSDIR.DS.'UserView.php';
 
-        $UserView = new UserView();
-
-        $html=$UserView->view_login();
-
-        echo $html;
-        http_response_code(200);
-    }
 
     public function login()
     {
@@ -149,21 +155,26 @@ public function showAllUsers() {
     /////////////////////////// USER SETTINGS /////////////////////////////////////
     public function update_user_details()
     {
-        //Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+        $id = filter_var(trim($_POST['user_id'] ?? ''), FILTER_SANITIZE_NUMBER_INT);
+        $fullname = filter_var(trim($_SESSION['fullname'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $goal = filter_var(trim($_POST['goal'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $height = filter_var(trim($_POST['height'] ?? ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $weight = filter_var(trim($_POST['weight'] ?? ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $age = filter_var(trim($_POST['age'] ?? ''), FILTER_SANITIZE_NUMBER_INT);
 
         //Init data
         $data = [
-            'user_id' => trim($_POST['user_id']),
-            'fullname' => trim($_POST['fullname']),
-            'goal' => trim($_POST['goal']),
-            'height' => trim($_POST['height']),
-            'weight' => trim($_POST['weight']),
-            'age' => trim($_POST['age'])
+            'id' => $id,
+            'fullname' => $fullname,
+            'goal' => $goal,
+            'height' => $height,
+            'weight' => $weight,
+            'age' => $age
         ];
 
         if ($this->userModel->update_user_details($data)) {
-            $updatedUser = $this->userModel->getUserById($data['user_id']);
+            $updatedUser = $this->userModel->getUserById($data['id']);
             $this->createUserSession($updatedUser);
             echo json_encode(['success' => true]);
             exit;
@@ -235,15 +246,6 @@ public function showAllUsers() {
     }
 
 
-    public function loadView($view) {
-        $filePath = VIEWSDIR . DS . ($view == 'settings' ? 'user' . DS : '') . $view . '.php';
-        
-        if (file_exists($filePath)) {
-            include $filePath;
-        } else {
-            echo "Page not found";
-        }
-    }
 
 }
 

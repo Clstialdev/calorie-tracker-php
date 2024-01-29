@@ -17,7 +17,7 @@
   <body>
     <!-- HEADER -->
     <?php
-    include_once 'header.php';
+   include_once VIEWSDIR.DS.'components'.DS.'header.php';
     ?>
     <!-- BODY -->
     <div class="bg-bg" style="min-height: 100vh; padding-left: 180px">

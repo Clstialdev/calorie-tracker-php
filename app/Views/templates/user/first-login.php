@@ -1,6 +1,6 @@
 <?php
-$rootPath = realpath(dirname(__FILE__));
-require_once $rootPath . '/../../Config/Globals.php'
+$rootPath = ROOT;
+require_once $rootPath . '/Config/Globals.php'
 ?>
 
 <!DOCTYPE html>
@@ -22,12 +22,12 @@ require_once $rootPath . '/../../Config/Globals.php'
 <body>
   <!-- HEADER -->
   <?php
-  include_once 'header.php';
+  include_once VIEWSDIR.DS.'components'.DS.'header.php';
 
 
   if (isset($_SESSION['age']) && $_SESSION['age'] !== null) {
     // Redirect to home.php
-    header('Location: index.php?view=home');
+    header('Location: home');
     exit();
   }
   ?>

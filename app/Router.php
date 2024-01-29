@@ -18,13 +18,20 @@ class Router {
     
     public function manageRequest() {
 
-        $uriSegments = explode('/', $_SERVER['REQUEST_URI']);
-        $requested = $uriSegments[2];
+        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-        // if (empty($_GET) && empty($_POST)) {
-        //     include VIEWSDIR. DS . 'login.php';
-        //     exit;
-        // }
+        $uriSegments = explode('/', $path);
+
+        $requested = $uriSegments[2];
+        $controller = "user";
+
+        if($requested === 'admin' || $requested === 'nutritionist' ){
+            $controller = $requested;
+            $requested = $uriSegments[3];
+        }
+
+        $requested = $requested !== "" ? $requested : "login";
+        $no_redirect_pages = array('login', 'register', 'reset-password');
 
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -59,34 +66,15 @@ class Router {
             exit;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            // Handling GET requests
-            // if (isset($_GET['action'])) {
-            //     switch ($_GET['action']) {
-            //         case 'logout':
-            //             $this->userController->logout();
-            //             break;
-            //         // Add more cases as needed
-            //         default:
-            //             // Default action or error handling
-            //             break;
-            //     }
-            // }
-            // elseif (isset($_GET['view'])) {
-            //     $this->userController->loadView($_GET['view']);
-            // }
+            
 
-            switch ($requested) {
-                case 'login':
-                    $this->userController->GETlogin();
-                    
-                    break;
-                
-                default:
-                    # code...
-                    break;
+            if (!isset($_SESSION['id']) && !in_array($requested, $no_redirect_pages)) {
+                $this->userController->GETPage("login");
+                exit();
             }
+            $this->userController->GETPage($requested);
+
         }
-        // Additional request handling can be added here
     }
     
     

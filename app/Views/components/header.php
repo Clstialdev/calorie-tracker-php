@@ -1,6 +1,7 @@
 <?php
 $rootPath = ROOT;
 require_once $rootPath . '/Config/Globals.php'
+
 ?>
 
 <header class="d-flex flex-column justify-content-between align-items-center bg-main position-fixed left-0 top-0" style="width: 180px; height: 100vh; padding: 80px 0;">
@@ -15,11 +16,11 @@ require_once $rootPath . '/Config/Globals.php'
   <!-- Disconnect / Connect -->
   <?php if (!isset($_SESSION['id'])) : ?>
     <div>
-    <a class="logo" href="index.php?view=login">
+    <a class="logo" href="login">
       Login
       <img src="" alt="" />
     </a>
-    <a class="logo" href="index.php?view=register">
+    <a class="logo" href="register">
       S'inscrire
       <img src="" alt="" />
     </a>
@@ -37,10 +38,10 @@ require_once $rootPath . '/Config/Globals.php'
           <a href=""><img src="<?=BASE_APP_DIR ?>/public/images/icons/calender.png" alt="" /></a>
         </li>
         <li>
-          <a href="index.php?view=recipes"><img src="<?=BASE_APP_DIR ?>/public/images/icons/market.png" alt="" /></a>
+          <a href="recipes"><img src="<?=BASE_APP_DIR ?>/public/images/icons/market.png" alt="" /></a>
         </li>
         <li>
-          <a href="index.php?view=settings"><img src="<?=BASE_APP_DIR ?>/public/images/icons/user.png" alt="" /></a>
+          <a href="settings"><img src="<?=BASE_APP_DIR ?>/public/images/icons/user.png" alt="" /></a>
         </li>
       </ul>
     </nav>

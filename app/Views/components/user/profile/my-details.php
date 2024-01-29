@@ -114,42 +114,24 @@
           </form>
         </div>
 
+
+
 <script type="text/javascript">
+  
 
 $("#update-user-details-btn").click(function(e){
     if($("#form-data")[0].checkValidity()){
         e.preventDefault();
+
+        performAjaxRequest(
+          "POST",
+          "update-user-details",
+          "",
+          "User details updated successfully!",
+          ""
+        );
         
-        $.ajax({
-            url: "../../controllers/Users.php",
-            type: "POST",
-            data: $("#form-data").serialize() + "&action=update-user-details",
-            dataType: 'json', // Expect JSON response
-            success: function(response){
-                if(response.success) {
-                    Swal.fire({
-                        title: 'User details updated successfully!',
-                        icon: 'success'
-                    })
-                    .then(function() {
-                        window.location.reload(true);
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Update failed!',
-                        text: response.message, // Display the error message from the server
-                        icon: 'error'
-                    });
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                Swal.fire({
-                    title: 'AJAX error!',
-                    text: 'Please try again. (' + textStatus + errorThrown + ')',
-                    icon: 'error'
-                });
-            }
-        });
+        
     }
 });
    
