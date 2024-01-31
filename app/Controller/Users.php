@@ -187,19 +187,18 @@ public function showAllUsers() {
 
     public function update_user_credentials()
     {
-        //Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
 
         //Init data
         $data = [
-            'user_id' => $_SESSION['id'],
-            'email' => trim($_POST['email']),
+            'id' => $_SESSION['id'],
+            'email' => trim($_POST['email'], FILTER_SANITIZE_EMAIL),
             'old_password' => trim($_POST['old_password']),
             'new_password' => trim($_POST['new_password']),
         ];
 
         if ($this->userModel->update_user_credentials($data)) {
-            $updatedUser = $this->userModel->getUserById($data['user_id']);
+            $updatedUser = $this->userModel->getUserById($data['id']);
             $this->createUserSession($updatedUser);
             echo json_encode(['success' => true]);
             exit;
