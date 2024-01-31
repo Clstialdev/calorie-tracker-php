@@ -147,6 +147,29 @@ function handleAjaxResponseUpdateUserDetails(
   }
 }
 
+function handleAjaxResponseUpdateUserCredentials(
+  response,
+  successTitle,
+  successMessage
+) {
+  if (response.success) {
+    Swal.fire({
+      title: successTitle,
+      text: successMessage,
+      icon: "success",
+    }).then(function () {
+      window.location.reload(true);
+    });
+    $("#form-data")[0].reset();
+  } else {
+    Swal.fire({
+      title: "Operation failed!",
+      text: response.message,
+      icon: "error",
+    });
+  }
+}
+
 function performAjaxRequest(
   requestType,
   action,
@@ -176,6 +199,12 @@ function performAjaxRequest(
         $("table").DataTable({ order: [0, "desc"] });
       } else if (action == "update-user-details") {
         handleAjaxResponseUpdateUserDetails(
+          response,
+          successTitle,
+          successMessage
+        );
+      } else if (action == "update-user-credentials") {
+        handleAjaxResponseUpdateUserCredentials(
           response,
           successTitle,
           successMessage
