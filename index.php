@@ -19,5 +19,9 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $r = new Router();
+
+
 $r->manageRequest();
 ?>
+
+

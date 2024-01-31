@@ -2,6 +2,8 @@
 
 require_once __DIR__ . DS . 'Controller' . DS . 'Users.php';
 require_once __DIR__ . DS . 'Controller' . DS . 'ResetPasswords.php';
+require_once __DIR__ . DS . 'Controller' . DS . 'recipesController.php';
+
 
 use Manger\Controller;
 
@@ -9,24 +11,29 @@ use Manger\Controller;
 class Router {
     private $userController;
     private $resetPasswordController;
+    private $RecipeController;
 
     public function __construct() {
         $this->userController = new \Manger\Controller\Users();
-        $this->resetPasswordController = new \Manger\Controller\ResetPasswords();             
+        $this->resetPasswordController = new \Manger\Controller\ResetPasswords();  
+        $this->RecipeController = new \Manger\Controller\RecipesController();           
     }
 
     
     public function manageRequest() {
-
+       
         if (empty($_GET) && empty($_POST)) {
             include __DIR__ . '/app/Views/login.php';
             exit;
         }
 
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    switch ($_POST['action']) {
+   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+     switch ($_POST['action']) {
+        case 'addRecipe':
+            $this->RecipeController->addNewRecipe();
+            break;
         case 'register':
             $this->userController->register();
             break;
@@ -56,9 +63,13 @@ class Router {
             exit;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
+  
             // Handling GET requests
             if (isset($_GET['action'])) {
                 switch ($_GET['action']) {
+                    case 'showAllRecipes':
+                        $this->RecipeController->recipesCont();
+                        break;
                     case 'logout':
                         $this->userController->logout();
                         break;

@@ -3,17 +3,21 @@
 namespace Manger\Controller;
 
 use Manger\Model\User; // fonctionnel
-use Manger\Helpers\Session_Helper; // fonctionnel
+
+use Manger\Helpers\Session_Helper; 
+use Manger\Views\LoginView;// fonctionnel
 
 class Users
 {
 
     private $userModel;
+    private $userView;
 
     public function __construct()
     {
 
         $this->userModel = new User();
+        
     }
 
    
@@ -70,7 +74,8 @@ class Users
         $password = trim($_POST['password'] ?? '');
 
         // Initialize data
-        $data = [
+        $data =
+         [
             'fullname' => $fullname,
             'password' => $password,
             'email' => $email
@@ -119,8 +124,9 @@ class Users
             $loggerInUser = $this->userModel->login($data['email'], $data['password']);
             if ($loggerInUser) {
                 $this->createUserSession($loggerInUser);
-                echo json_encode(['success' => true]);
-                exit;
+                $this->userView->logView();
+                //echo json_encode(['success' => true]);
+               // exit;
             } else {
                 echo json_encode(['success' => false, 'message' => 'Password Incorrect']);
                 exit;

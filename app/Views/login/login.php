@@ -1,3 +1,9 @@
+<?php
+$rootPath = realpath(dirname(__FILE__));
+require_once $rootPath . '/../../Config/Globals.php'
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +12,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../../public/css/colors.css" />
+  <link rel="stylesheet" href="<?= BASE_APP_DIR ?> /public/css/colors.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <link rel="stylesheet" href="../../public/css/global.css" />
+  <link rel="stylesheet" href="<?= BASE_APP_DIR ?> /public/css/global.css" />
 
 </head>
 
@@ -27,7 +33,7 @@
     <!-- Login Form-->
     <div class="w-full items-center flex-column flex min-h-screen pt-24">
       <h1 class="text-5xl font-bold">Login</h1>
-      <form class="bg-gray w-[500px] rounded min-h-[400px] mt-14 p-8" id="form-data" action="" method="post">
+      <form class="bg-gray w-[500px] rounded min-h-[400px] mt-14 p-8" id="form-data" action="index.php?action=login" method="post">
 
         <div class="flex flex-column mt-4">
           <label class="font-bold text-white">Email</label>
@@ -43,7 +49,7 @@
         <div class="flex flex-column mt-4">
           <input type="submit" class="py-3 px-4 bg-[#d6ff92] rounded w-full" name="login" id="login" value="Login">
         </div>
-        <a class="logo h-[66px] w-[66px] self-end" href="reset-password.php">
+        <a class="logo h-[66px] w-[66px] self-end" href="index.php?view=reset-password">
           Reset password
           <img src="" alt="" />
         </a>
@@ -52,22 +58,9 @@
   </div>
 
 
-  <script src="/../../public/js/ajax.js"></script>
+  <script src="<?= BASE_APP_DIR ?> /public/js/ajax.js"></script>
 
-  <script type="text/javascript">
-    $("#login").click(function(e) {
-      console.log("dans login");
-      if ($("#form-data")[0].checkValidity()) {
-        e.preventDefault();
-        performAjaxRequest(
-          "login",
-          "",
-          "User login successfully!",
-          "Login failed!"
-        );
-      }
-    });
-  </script>
+  
 </body>
 
 </html>

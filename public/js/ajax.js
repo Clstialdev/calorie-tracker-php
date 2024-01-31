@@ -17,6 +17,24 @@ function handleAjaxResponse(response, successTitle, successMessage) {
     }
 }
 
+function handleAjaxResponseAddRecipes(response, successTitle, successMessage) {
+    if (response.success) {
+        Swal.fire({
+            title: successTitle,
+            text: successMessage,
+            icon: 'success'
+        }).then(function () {
+           // window.location.href = 'index.php?view=home';
+        });
+        $("#form-data")[0].reset();
+    } else {
+        Swal.fire({
+            title: 'Operation failed!',
+            text: response.message,
+            icon: 'error'
+        });
+    }
+}
 function handleAjaxResponseRegister(response, successTitle, successMessage) {
     if (response.success) {
         Swal.fire({
@@ -140,10 +158,18 @@ function performAjaxRequest(requestType, action, additionalData, successTitle, s
                 handleAjaxResponseResetPassword(response, successTitle, successMessage);
             } else if (action == 'newPassword'){
                 handleAjaxResponseNewPassword(response, successTitle, successMessage);
-            } else if (action == 'showAllUsers'){
-                $("#showUser").html(response.message);
-                $("table").DataTable({order:[0,'desc'] });
-            } else {
+            }
+            else if (action == 'showAllRecipes'){
+                
+            }
+            else if (action == 'addRecipe'){
+                handleAjaxResponseAddRecipes(response, successTitle, successMessage);
+            }
+             else if (action == 'showAllUsers'){
+               // $("#showUser").html(response.message);
+               // $("table").DataTable({order:[0,'desc'] });
+            } 
+            else {
                 handleAjaxResponse(response, successTitle, successMessage);
             }
         },
